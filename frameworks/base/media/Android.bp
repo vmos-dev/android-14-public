@@ -1,0 +1,39 @@
+package {
+    // See: http://go/android-license-faq
+    // A large-scale-change added 'default_applicable_licenses' to import
+    // all of the 'license_kinds' from "frameworks_base_license"
+    // to get the below license kinds:
+    //   SPDX-license-identifier-Apache-2.0
+    default_applicable_licenses: ["frameworks_base_license"],
+}
+
+aidl_interface {
+    name: "media_permission-aidl",
+    unstable: true,
+    host_supported: true,
+    vendor_available: true,
+    double_loadable: true,
+    local_include_dir: "aidl",
+    srcs: [
+        "aidl/android/media/permission/Identity.aidl",
+    ],
+}
+
+aidl_interface {
+    name: "soundtrigger_middleware-aidl",
+    unstable: true,
+    local_include_dir: "aidl",
+    backend: {
+        java: {
+            sdk_version: "module_current",
+        },
+    },
+    srcs: [
+        "aidl/android/media/soundtrigger_middleware/*.aidl",
+    ],
+    imports: [
+        "android.media.audio.common.types-V2",
+        "android.media.soundtrigger.types-V1",
+        "media_permission-aidl",
+    ],
+}

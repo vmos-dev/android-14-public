@@ -1,0 +1,51 @@
+on boot
+    # Allow bugreports access to eMMC 5.0 stats
+    chown root mount /sys/kernel/debug/mmc0/mmc0:0001/ext_csd
+    chmod 0440 /sys/kernel/debug/mmc0/mmc0:0001/ext_csd
+
+service dumpstate /system/bin/dumpstate -s
+    class main
+    socket dumpstate stream 0660 shell log
+    disabled
+    oneshot
+    user root
+
+# dumpstatez generates a zipped bugreport but also uses a socket to print the file location once
+# it is finished.
+service dumpstatez /system/bin/dumpstate -S
+    socket dumpstate stream 0660 shell log
+    class main
+    disabled
+    oneshot
+    user root
+
+# bugreportd starts dumpstate binder service and makes it wait for a listener to connect.
+service bugreportd /system/bin/dumpstate -w
+    class main
+    disabled
+    oneshot
+    user root
+
+#----rk-change----
+# dump kernel panic message at last boot
+service dump_kernel_panic /system/bin/dumpstate -K -q
+    socket dumpstate stream 0660 shell log
+    class main
+    disabled
+    oneshot
+    user root
+    writepid /dev/cpuset/system-background/tasks
+
+# Check whether the last boot has panic or not duraing boot.
+on post-fs-data
+    start dump_kernel_panic
+
+# trigger a simple bugreport on demand
+service simple_bugreportd /system/bin/dumpstate -D -q
+    socket dumpstate stream 0660 shell log
+    class main
+    disabled
+    oneshot
+    user root
+    writepid /dev/cpuset/system-background/tasks
+#----------------

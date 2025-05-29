@@ -1,0 +1,19 @@
+package {
+    default_applicable_licenses: ["Android-Apache-2.0"],
+}
+
+java_test_host {
+    name: "CarServiceCrashDumpTest",
+    srcs: ["src/**/CarServiceCrashDumpTest.java"],
+    libs: [
+        "junit",
+        "tradefed",
+        "truth-prebuilt",
+    ],
+    static_libs: [
+        "compatibility-host-util",
+    ],
+    test_suites: [
+        "automotive-tests",
+    ],
+}

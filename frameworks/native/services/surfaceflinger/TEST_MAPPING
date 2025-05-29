@@ -1,0 +1,23 @@
+{
+  "imports": [
+    {
+      "path": "frameworks/native/libs/gui"
+    }
+  ],
+  "presubmit": [
+    {
+      "name": "libsurfaceflinger_unittest"
+    },
+    {
+      "name": "libcompositionengine_test"
+    },
+    {
+      "name": "libscheduler_test"
+    }
+  ],
+  "hwasan-presubmit": [
+    {
+      "name": "libscheduler_test"
+    }
+  ]
+}

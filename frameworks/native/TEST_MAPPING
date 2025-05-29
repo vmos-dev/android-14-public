@@ -1,0 +1,33 @@
+{
+  "presubmit": [
+    {
+      "name": "SurfaceFlinger_test",
+      "options": [
+        {
+          "include-filter": "*"
+        },
+        {
+          "exclude-filter": "*ChildLayerTest#ChildrenSurviveParentDestruction"
+        }
+      ]
+    },
+    {
+      "name": "CtsGraphicsTestCases",
+      "options": [
+        {
+          "include-filter": "android.graphics.cts.VulkanPreTransformTest"
+        }
+      ]
+    }
+  ],
+  "hwasan-postsubmit": [
+    {
+      "name": "SurfaceFlinger_test",
+      "options": [
+        {
+          "include-filter": "*"
+        }
+      ]
+    }
+  ]
+}
