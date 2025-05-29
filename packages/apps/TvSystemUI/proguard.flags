@@ -1,0 +1,12 @@
+-include ../../../frameworks/base/packages/SystemUI/proguard_common.flags
+
+-keep class com.android.systemui.statusbar.tv.TvStatusBar
+
+-keep class com.android.systemui.tv.TvSystemUIInitializer {
+    *;
+}
+
+-keep,allowoptimization,allowaccessmodification class com.android.systemui.tv.DaggerTvGlobalRootComponent** { !synthetic *; }
+
+# TODO(b/284411203) delete this
+-keep,allowoptimization,allowaccessmodification class com.android.systemui.dagger.DaggerReferenceGlobalRootComponent** { !synthetic *; }

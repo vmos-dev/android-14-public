@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="penColorSpinner">
+        <item>黑色</item>
+        <item>蓝色</item>
+        <item>绿色</item>
+        <item>红色</item>
+        <item>白色</item>
+    </string-array>
+</resources>

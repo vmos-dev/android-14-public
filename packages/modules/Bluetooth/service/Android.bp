@@ -1,0 +1,148 @@
+// Copyright (C) 2021 The Android Open Source Project
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+package {
+    default_applicable_licenses: ["Android-Apache-2.0"],
+}
+
+filegroup {
+    name: "services.bluetooth-sources",
+    srcs: [
+        ":statslog-bluetooth-java-gen",
+        "src/**/*.java",
+        "src/**/*.kt",
+    ],
+    visibility: [
+        "//frameworks/base/services",
+        "//frameworks/base/services/core",
+    ],
+}
+
+java_defaults {
+    name: "service-bluetooth-common-defaults",
+    defaults: ["bluetooth-module-sdk-version-defaults"],
+    errorprone: {
+        javacflags: ["-Xep:CheckReturnValue:ERROR"],
+    },
+    product_variables: {
+        pdk: {
+            enabled: false,
+        },
+    },
+    apex_available: [
+        "com.android.btservices",
+    ],
+    min_sdk_version: "Tiramisu",
+    defaults_visibility: [
+        ":__subpackages__",
+    ],
+}
+
+// pre-jarjar version of service-bluetooth that builds against pre-jarjar version of framework-bluetooth
+java_library {
+    name: "service-bluetooth-pre-jarjar",
+    installable: false,
+    defaults: ["service-bluetooth-common-defaults"],
+    srcs: [
+        ":services.bluetooth-sources",
+    ],
+
+    sdk_version: "system_server_current",
+
+    lint: {
+        strict_updatability_linting: true,
+    },
+    libs: [
+        "framework-annotations-lib",
+        "framework-bluetooth-pre-jarjar",
+        "framework-configinfrastructure",
+        "framework-statsd.stubs.module_lib",
+        "service-bluetooth.change-ids",
+    ],
+
+    static_libs: [
+        "androidx.annotation_annotation",
+        "androidx.appcompat_appcompat",
+        "bluetooth-manager-service-proto-java-gen",
+        "bluetooth-nano-protos",
+        "bluetooth-proto-enums-java-gen",
+        "modules-utils-shell-command-handler",
+    ],
+}
+
+// service-bluetooth static library
+// ==============================================================
+java_library {
+    name: "service-bluetooth",
+    defaults: ["service-bluetooth-common-defaults"],
+    installable: true,
+    static_libs: [
+        "androidx.appcompat_appcompat",
+        "service-bluetooth-pre-jarjar",
+    ],
+
+    libs: [
+        "framework-bluetooth.impl",
+    ],
+    sdk_version: "system_server_current",
+
+    jarjar_rules: ":bluetooth-jarjar-rules",
+
+    optimize: {
+        enabled: true,
+        shrink: true,
+        proguard_flags_files: ["proguard.flags"],
+    },
+    visibility: [
+        "//packages/modules/Bluetooth/apex",
+    ],
+}
+
+java_library {
+    name: "bluetooth-manager-service-proto-java-gen",
+    installable: false,
+    proto: {
+        type: "stream",
+        include_dirs: [
+            "external/protobuf/src",
+        ],
+    },
+    srcs: [
+        ":srcs_bluetooth_manager_service_proto",
+    ],
+    sdk_version: "system_server_current",
+    apex_available: [
+        "com.android.btservices",
+    ],
+    min_sdk_version: "Tiramisu",
+}
+
+java_library {
+    name: "bluetooth-nano-protos",
+    sdk_version: "system_current",
+    min_sdk_version: "Tiramisu",
+    proto: {
+        type: "nano",
+    },
+    srcs: [
+        ":system-messages-proto-src",
+    ],
+    libs: ["libprotobuf-java-nano"],
+    apex_available: [
+        "com.android.btservices",
+    ],
+    lint: {
+        strict_updatability_linting: true,
+    },
+}

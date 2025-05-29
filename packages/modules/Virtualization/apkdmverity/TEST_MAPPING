@@ -1,0 +1,7 @@
+{
+  "avf-postsubmit" : [
+    {
+      "name" : "apkdmverity.test"
+    }
+  ]
+}

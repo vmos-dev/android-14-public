@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2023 The Android Open Source Project
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:settings="http://schemas.android.com/apk/res-auto"
+    android:title="@string/settings_label"
+    android:key="@string/psk_homepage">
+    <!-- TODO: Re-enable once more suggestion use cases are supported.
+    <com.android.car.settings.common.LogicalPreferenceGroup
+        android:key="@string/pk_suggestions"
+        settings:controller="com.android.car.settings.suggestions.SuggestionsPreferenceController"/>
+    -->
+    <com.android.car.settings.common.TopLevelPreference
+        android:fragment="com.android.car.settings.sound.SoundSettingsFragment"
+        android:icon="@drawable/ic_top_level_sound"
+        android:key="@string/pk_sound_settings_entry"
+        android:title="@string/sound_settings"
+        settings:controller="com.android.car.settings.common.DefaultRestrictionsPreferenceController"/>
+    <com.android.car.settings.common.TopLevelPreference
+        android:fragment="com.android.car.settings.display.DisplaySettingsFragment"
+        android:icon="@drawable/ic_top_level_display"
+        android:key="@string/pk_display_settings_entry"
+        android:title="@string/display_settings"
+        settings:controller="com.android.car.settings.common.DefaultRestrictionsPreferenceController"/>
+    <com.android.car.settings.common.TopLevelPreference
+        android:fragment="com.android.car.settings.system.SystemSettingsFragment"
+        android:icon="@drawable/ic_top_level_system"
+        android:key="@string/pk_system_settings_entry"
+        android:title="@string/system_setting_title"
+        settings:controller="com.android.car.settings.common.DefaultRestrictionsPreferenceController"/>
+</PreferenceScreen>

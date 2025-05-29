@@ -1,0 +1,17 @@
+
+# Keep JNI registered methods
+-keepclasseswithmembers,includedescriptorclasses class * { native <methods>; }
+
+# Keep classes extending structured message.
+-keepclassmembers public class * extends **.com.android.net.module.util.Struct {
+    *;
+}
+
+-keepclassmembers class android.net.**,com.android.networkstack.** {
+    static final % POLICY_*;
+    static final % NOTIFY_TYPE_*;
+    static final % TRANSPORT_*;
+    static final % CMD_*;
+    static final % EVENT_*;
+}
+

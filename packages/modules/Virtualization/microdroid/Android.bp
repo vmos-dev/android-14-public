@@ -1,0 +1,463 @@
+package {
+    default_applicable_licenses: ["Android-Apache-2.0"],
+}
+
+microdroid_shell_and_utilities = [
+    "reboot",
+    "sh",
+    "strace",
+    "toolbox",
+    "toybox",
+]
+
+microdroid_rootdirs = [
+    "dev",
+    "proc",
+    "sys",
+
+    "system",
+    "vendor",
+    "debug_ramdisk",
+    "mnt",
+    "data",
+
+    "apex",
+    "linkerconfig",
+    "second_stage_resources",
+]
+
+microdroid_symlinks = [
+    {
+        target: "/sys/kernel/debug",
+        name: "d",
+    },
+    {
+        target: "/system/etc",
+        name: "etc",
+    },
+    {
+        target: "/system/bin",
+        name: "bin",
+    },
+]
+
+android_system_image {
+    name: "microdroid",
+    use_avb: true,
+    avb_private_key: ":microdroid_sign_key",
+    avb_algorithm: "SHA256_RSA4096",
+    avb_hash_algorithm: "sha256",
+    partition_name: "system",
+    deps: [
+        "init_second_stage",
+        "microdroid_build_prop",
+        "microdroid_init_debug_policy",
+        "microdroid_init_rc",
+        "microdroid_ueventd_rc",
+        "microdroid_launcher",
+
+        "libbinder",
+        "libbinder_ndk",
+        "libstdc++",
+        "secilc",
+
+        // "com.android.adbd" requires these,
+        "libadbd_auth",
+        "libadbd_fs",
+
+        // "com.android.art" requires
+        "heapprofd_client_api",
+        "libartpalette-system",
+
+        "apexd.microdroid",
+        "debuggerd",
+        "linker",
+        "cgroups.json",
+        "task_profiles.json",
+        "public.libraries.android.txt",
+
+        "microdroid_event-log-tags",
+        "microdroid_file_contexts",
+        "microdroid_manifest",
+        "microdroid_plat_sepolicy_and_mapping.sha256",
+        "microdroid_property_contexts",
+        "mke2fs.microdroid",
+
+        "libvm_payload", // used by payload to interact with microdroid manager
+
+        "prng_seeder_microdroid",
+
+        // Binaries required to capture traces in Microdroid.
+        "atrace",
+        "traced",
+        "traced_probes",
+        "perfetto",
+    ] + microdroid_shell_and_utilities,
+    multilib: {
+        common: {
+            deps: [
+                // non-updatable & mandatory apexes
+                "com.android.runtime",
+
+                "microdroid_plat_sepolicy.cil",
+                "microdroid_plat_mapping_file",
+                "microdroid_crashdump_initrd",
+            ],
+        },
+        lib64: {
+            deps: [
+                "apkdmverity",
+                "authfs",
+                "authfs_service",
+                "encryptedstore",
+                "microdroid_kexec",
+                "microdroid_manager",
+                "zipfuse",
+            ],
+        },
+    },
+    arch: {
+        // b/273792258: These could be in multilib.lib64 except that
+        // microdroid_crashdump_kernel doesn't exist for riscv64 yet
+        arm64: {
+            deps: [
+                "microdroid_crashdump_kernel",
+            ],
+        },
+        x86_64: {
+            deps: [
+                "microdroid_crashdump_kernel",
+            ],
+        },
+    },
+    linker_config_src: "linker.config.json",
+    base_dir: "system",
+    dirs: microdroid_rootdirs,
+    symlinks: microdroid_symlinks,
+    file_contexts: ":microdroid_file_contexts.gen",
+    // For deterministic output, use fake_timestamp, hard-coded uuid
+    fake_timestamp: "1611569676",
+    // python -c "import uuid; print(uuid.uuid5(uuid.NAMESPACE_URL, 'www.android.com/avf/microdroid/system'))"
+    uuid: "5fe079c6-f01a-52be-87d3-d415231a72ad",
+}
+
+prebuilt_etc {
+    name: "microdroid_init_rc",
+    filename: "init.rc",
+    src: "init.rc",
+    relative_install_path: "init/hw",
+    installable: false, // avoid collision with system partition's init.rc
+}
+
+prebuilt_etc {
+    name: "microdroid_ueventd_rc",
+    filename: "ueventd.rc",
+    src: "ueventd.rc",
+    installable: false, // avoid collision with system partition's ueventd.rc
+}
+
+prebuilt_root {
+    name: "microdroid_build_prop",
+    filename: "build.prop",
+    src: "build.prop",
+    arch: {
+        x86_64: {
+            src: ":microdroid_build_prop_gen_x86_64",
+        },
+        arm64: {
+            src: ":microdroid_build_prop_gen_arm64",
+        },
+    },
+    installable: false,
+}
+
+genrule {
+    name: "microdroid_build_prop_gen_x86_64",
+    srcs: [
+        "build.prop",
+        ":buildinfo.prop",
+    ],
+    out: ["build.prop.out"],
+    cmd: "(echo '# build properties from buildinfo.prop module' && " +
+        "grep ro\\.build\\.version\\.codename= $(location :buildinfo.prop) && " +
+        "grep ro\\.build\\.version\\.release= $(location :buildinfo.prop) && " +
+        "grep ro\\.build\\.version\\.sdk= $(location :buildinfo.prop) && " +
+        "grep ro\\.build\\.version\\.security_patch= $(location :buildinfo.prop) && " +
+        "grep ro\\.build\\.version\\.known_codenames= $(location :buildinfo.prop) && " +
+        "cat $(location build.prop) && " +
+        "echo ro.product.cpu.abilist=x86_64 && " +
+        "echo ro.product.cpu.abi=x86_64) > $(out)",
+}
+
+genrule {
+    name: "microdroid_build_prop_gen_arm64",
+    srcs: [
+        "build.prop",
+        ":buildinfo.prop",
+    ],
+    out: ["build.prop.out"],
+    cmd: "(echo '# build properties from buildinfo.prop module' && " +
+        "grep ro\\.build\\.version\\.codename= $(location :buildinfo.prop) && " +
+        "grep ro\\.build\\.version\\.release= $(location :buildinfo.prop) && " +
+        "grep ro\\.build\\.version\\.sdk= $(location :buildinfo.prop) && " +
+        "grep ro\\.build\\.version\\.security_patch= $(location :buildinfo.prop) && " +
+        "grep ro\\.build\\.version\\.known_codenames= $(location :buildinfo.prop) && " +
+        "cat $(location build.prop) && " +
+        "echo ro.product.cpu.abilist=arm64-v8a && " +
+        "echo ro.product.cpu.abi=arm64-v8a) > $(out)",
+}
+
+android_filesystem {
+    name: "microdroid_vendor",
+    partition_name: "vendor",
+    use_avb: true,
+    deps: [
+        "microdroid_fstab",
+        "microdroid_precompiled_sepolicy.plat_sepolicy_and_mapping.sha256",
+        "microdroid_vendor_manifest",
+        "microdroid_vendor_compatibility_matrix",
+    ],
+    multilib: {
+        common: {
+            deps: [
+                "microdroid_vendor_sepolicy.cil",
+                "microdroid_plat_pub_versioned.cil",
+                "microdroid_plat_sepolicy_vers.txt",
+                "microdroid_precompiled_sepolicy",
+            ],
+        },
+    },
+    avb_private_key: ":microdroid_sign_key",
+    avb_algorithm: "SHA256_RSA4096",
+    avb_hash_algorithm: "sha256",
+    file_contexts: ":microdroid_vendor_file_contexts.gen",
+    // For deterministic output, use fake_timestamp, hard-coded uuid
+    fake_timestamp: "1611569676",
+    // python -c "import uuid; print(uuid.uuid5(uuid.NAMESPACE_URL, 'www.android.com/avf/microdroid/vendor'))"
+    uuid: "156d40d7-8d8e-5c99-8913-ec82de549a70",
+}
+
+logical_partition {
+    name: "microdroid_super",
+    sparse: true,
+    size: "auto",
+    default_group: [
+        {
+            name: "system_a",
+            filesystem: ":microdroid",
+        },
+        {
+            name: "vendor_a",
+            filesystem: ":microdroid_vendor",
+        },
+    ],
+}
+
+android_filesystem {
+    name: "microdroid_ramdisk",
+    deps: [
+        "init_first_stage",
+    ],
+    dirs: [
+        "dev",
+        "proc",
+        "sys",
+
+        // TODO(jiyong): remove these
+        "mnt",
+        "debug_ramdisk",
+        "second_stage_resources",
+    ],
+    type: "compressed_cpio",
+}
+
+android_filesystem {
+    name: "microdroid_vendor_ramdisk",
+    deps: [
+        "microdroid_fstab",
+    ],
+    base_dir: "first_stage_ramdisk",
+    type: "compressed_cpio",
+    symlinks: [
+        {
+            target: "etc/fstab.microdroid",
+            name: "first_stage_ramdisk/fstab.microdroid",
+        },
+        {
+            target: "first_stage_ramdisk/lib",
+            name: "lib",
+        },
+    ],
+}
+
+genrule {
+    name: "microdroid_bootconfig_arm64_gen",
+    srcs: [
+        "bootconfig.common",
+        "bootconfig.arm64",
+    ],
+    out: ["bootconfig"],
+    cmd: "cat $(in) > $(out)",
+}
+
+genrule {
+    name: "microdroid_bootconfig_x86_64_gen",
+    srcs: [
+        "bootconfig.common",
+        "bootconfig.x86_64",
+    ],
+    out: ["bootconfig"],
+    cmd: "cat $(in) > $(out)",
+}
+
+prebuilt_etc {
+    name: "microdroid_fstab",
+    src: "fstab.microdroid",
+    filename: "fstab.microdroid",
+    installable: false,
+}
+
+// python -c "import hashlib; print(hashlib.sha256(b'bootloader').hexdigest())"
+bootloader_salt = "3b4a12881d11f33cff968a24d7c53723a8232cde9a8d91e29fdbd6a95ae6adf0"
+
+// Note that keys can be different for filesystem images even though we're using the same key
+// for microdroid. However, the key signing VBmeta should match with the pubkey embedded in
+// bootloader.
+filegroup {
+    name: "microdroid_sign_key",
+    srcs: [":avb_testkey_rsa4096"],
+}
+
+vbmeta {
+    name: "microdroid_vbmeta",
+    partition_name: "vbmeta",
+    private_key: ":microdroid_sign_key",
+    partitions: [
+        "microdroid_vendor",
+        "microdroid",
+    ],
+}
+
+prebuilt_etc {
+    name: "microdroid.json",
+    src: "microdroid.json",
+}
+
+prebuilt_etc {
+    name: "microdroid_vendor_manifest",
+    src: "microdroid_vendor_manifest.xml",
+    filename: "manifest.xml",
+    relative_install_path: "vintf",
+    installable: false,
+}
+
+prebuilt_etc {
+    name: "microdroid_vendor_compatibility_matrix",
+    src: "microdroid_vendor_compatibility_matrix.xml",
+    filename: "compatibility_matrix.xml",
+    relative_install_path: "vintf",
+    installable: false,
+}
+
+prebuilt_etc {
+    name: "microdroid_manifest",
+    src: "microdroid_manifest.xml",
+    filename: "manifest.xml",
+    relative_install_path: "vintf",
+    installable: false,
+}
+
+prebuilt_etc {
+    name: "microdroid_event-log-tags",
+    src: "microdroid_event-log-tags",
+    filename: "event-log-tags",
+    installable: false,
+}
+
+filegroup {
+    name: "microdroid_bootconfig_debuggable_src",
+    srcs: ["bootconfig.debuggable"],
+}
+
+filegroup {
+    name: "microdroid_bootconfig_normal_src",
+    srcs: ["bootconfig.normal"],
+}
+
+// python -c "import hashlib; print(hashlib.sha256(b'initrd_normal').hexdigest())"
+initrd_normal_salt = "8041a07d54ac82290f6d90bac1fa8d7fdbc4db974d101d60faf294749d1ebaf8"
+
+avb_gen_vbmeta_image {
+    name: "microdroid_initrd_normal_hashdesc",
+    src: ":microdroid_initrd_normal",
+    partition_name: "initrd_normal",
+    salt: initrd_normal_salt,
+    enabled: false,
+    arch: {
+        // Microdroid kernel is only available in these architectures.
+        arm64: {
+            enabled: true,
+        },
+        x86_64: {
+            enabled: true,
+        },
+    },
+}
+
+// python -c "import hashlib; print(hashlib.sha256(b'initrd_debug').hexdigest())"
+initrd_debug_salt = "8ab9dc9cb7e6456700ff6ef18c6b4c3acc24c5fa5381b829563f8d7a415d869a"
+
+avb_gen_vbmeta_image {
+    name: "microdroid_initrd_debug_hashdesc",
+    src: ":microdroid_initrd_debuggable",
+    partition_name: "initrd_debug",
+    salt: initrd_debug_salt,
+    enabled: false,
+    arch: {
+        // Microdroid kernel is only available in these architectures.
+        arm64: {
+            enabled: true,
+        },
+        x86_64: {
+            enabled: true,
+        },
+    },
+}
+
+avb_add_hash_footer {
+    name: "microdroid_kernel_signed",
+    src: ":empty_file",
+    filename: "microdroid_kernel",
+    partition_name: "boot",
+    private_key: ":microdroid_sign_key",
+    salt: bootloader_salt,
+    enabled: false,
+    arch: {
+        arm64: {
+            src: ":microdroid_kernel_prebuilts-6.1-arm64",
+            enabled: true,
+        },
+        x86_64: {
+            src: ":microdroid_kernel_prebuilts-6.1-x86_64",
+            enabled: true,
+        },
+    },
+    include_descriptors_from_images: [
+        ":microdroid_initrd_normal_hashdesc",
+        ":microdroid_initrd_debug_hashdesc",
+    ],
+}
+
+prebuilt_etc {
+    name: "microdroid_kernel",
+    src: ":empty_file",
+    relative_install_path: "fs",
+    arch: {
+        arm64: {
+            src: ":microdroid_kernel_signed",
+        },
+        x86_64: {
+            src: ":microdroid_kernel_signed",
+        },
+    },
+}

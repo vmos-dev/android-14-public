@@ -1,0 +1,177 @@
+package {
+    // See: http://go/android-license-faq
+    // A large-scale-change added 'default_applicable_licenses' to import
+    // all of the 'license_kinds' from "system_bt_license"
+    // to get the below license kinds:
+    //   SPDX-license-identifier-Apache-2.0
+    //   SPDX-license-identifier-MIT
+    default_applicable_licenses: ["system_bt_license"],
+}
+
+cc_defaults {
+    name: "fluoride_osi_defaults",
+    defaults: ["fluoride_defaults"],
+    include_dirs: [
+        "packages/modules/Bluetooth/system",
+        "packages/modules/Bluetooth/system/gd",
+        "packages/modules/Bluetooth/system/internal_include",
+        "packages/modules/Bluetooth/system/stack/include",
+    ],
+}
+
+// Static libraries required by other modules
+cc_test_library {
+    name: "libosi-AllocationTestHarness",
+    defaults: ["fluoride_osi_defaults"],
+    srcs: [
+        "test/AllocationTestHarness.cc",
+    ],
+    host_supported: true,
+    shared: {
+        enabled: false,
+    },
+}
+
+cc_test_library {
+    name: "libosi-AlarmTestHarness",
+    defaults: ["fluoride_osi_defaults"],
+    srcs: [
+        "test/AlarmTestHarness.cc",
+    ],
+    host_supported: true,
+    shared: {
+        enabled: false,
+    },
+}
+
+filegroup {
+    name: "OsiCompatSources",
+    srcs: [
+        "src/compat.cc",
+    ],
+}
+
+// libosi static library for target
+cc_library_static {
+    name: "libosi",
+    visibility: [
+        "//packages/apps/Test/connectivity/sl4n",
+        "//packages/modules/Bluetooth:__subpackages__",
+    ],
+    export_include_dirs: [
+        "include",
+    ],
+    local_include_dirs: [
+        "include_internal",
+    ],
+    defaults: [
+        "fluoride_basic_defaults",
+        "fluoride_osi_defaults",
+    ],
+    // TODO(mcchou): Remove socket_utils sources after platform specific
+    // dependencies are abstracted.
+    srcs: [
+        ":OsiCompatSources",
+        "src/alarm.cc",
+        "src/allocation_tracker.cc",
+        "src/allocator.cc",
+        "src/array.cc",
+        "src/buffer.cc",
+        "src/config.cc",
+        "src/fixed_queue.cc",
+        "src/future.cc",
+        "src/hash_map_utils.cc",
+        "src/list.cc",
+        "src/mutex.cc",
+        "src/osi.cc",
+        "src/properties.cc",
+        "src/reactor.cc",
+        "src/ringbuffer.cc",
+        "src/socket.cc",
+        "src/socket_utils/socket_local_client.cc",
+        "src/socket_utils/socket_local_server.cc",
+        "src/thread.cc",
+        "src/thread_scheduler.cc",
+        "src/wakelock.cc",
+
+        // internal source that should not be used outside of libosi
+        "src/internal/semaphore.cc",
+    ],
+    host_supported: true,
+    // TODO(armansito): Setting _GNU_SOURCE isn't very platform-independent but
+    // should be compatible for a Linux host OS. We should figure out what to do for
+    // a non-Linux host OS.
+    target: {
+        host_linux: {
+            cflags: [
+                "-D_GNU_SOURCE",
+            ],
+        },
+    },
+    cflags: [
+        "-DLIB_OSI_INTERNAL",
+    ],
+    min_sdk_version: "Tiramisu",
+    apex_available: [
+        "com.android.btservices",
+    ],
+}
+
+// libosi unit tests for target and host
+cc_test {
+    name: "net_test_osi",
+    test_suites: ["device-tests"],
+    defaults: [
+        "bluetooth_gtest_x86_asan_workaround",
+        "fluoride_osi_defaults",
+        "mts_defaults",
+    ],
+    host_supported: true,
+    srcs: [
+        "test/AlarmTestHarness.cc",
+        "test/AllocationTestHarness.cc",
+        "test/alarm_test.cc",
+        "test/allocation_tracker_test.cc",
+        "test/allocator_test.cc",
+        "test/array_test.cc",
+        "test/config_test.cc",
+        "test/fixed_queue_test.cc",
+        "test/future_test.cc",
+        "test/hash_map_utils_test.cc",
+        "test/list_test.cc",
+        "test/properties_test.cc",
+        "test/rand_test.cc",
+        "test/reactor_test.cc",
+        "test/ringbuffer_test.cc",
+        "test/thread_test.cc",
+        "test/wakelock_test.cc", // test internal sources only used inside the libosi
+
+        "test/internal/semaphore_test.cc",
+    ],
+    shared_libs: [
+        "libbase",
+        "libcrypto",
+        "libcutils",
+        "liblog",
+    ],
+    local_include_dirs: [
+        "include_internal",
+        "test",
+    ],
+    static_libs: [
+        "libbt-common",
+        "libbt-protos-lite",
+        "libc++fs",
+        "libchrome",
+        "libevent",
+        "libgmock",
+        "libosi",
+        "libprotobuf-cpp-lite",
+    ],
+    cflags: [
+        "-DLIB_OSI_INTERNAL",
+    ],
+    sanitize: {
+        cfi: false,
+    },
+}

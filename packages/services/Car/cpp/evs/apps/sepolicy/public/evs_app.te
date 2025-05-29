@@ -1,0 +1,3 @@
+# evs app
+type evs_app, domain, coredomain;
+

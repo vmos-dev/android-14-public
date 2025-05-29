@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">HdmiIn</string>
+    <string name="take_picture">Take picture</string>
+
+    <string name="back_key_warn">Back Key disable</string>
+    <string name="err_not_channel">Not found ChannelUri</string>
+    <string name="btn_switch">Switch</string>
+    <string name="btn_screenshot">screenshot</string>
+    <string name="btn_pip">PIP</string>
+    <string name="notification_screen_record">screen record</string>
+    <string name="save_failed">save failed</string>
+    <string name="screenshot_failed">screenshot failed</string>
+</resources>

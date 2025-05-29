@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <CheckBox
+        android:id="@+id/checkbox_svep_mode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/textview_svep_mode" />
+
+    <CheckBox
+        android:id="@+id/checkbox_svep_global_ui"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/textview_svep_global_ui" />
+
+    <CheckBox
+        android:id="@+id/checkbox_svep_contrast_mode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/textview_svep_contrast_mode" />
+
+    <SeekBar
+        android:id="@+id/seekbar_svep_contrast_ratio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="40dp"
+        android:max="100"
+        app:layout_constraintEnd_toStartOf="@id/textview_svep_contrast_ratio_value"
+        app:layout_constraintStart_toStartOf="@id/textview_svep_contrast_ratio"
+        app:layout_constraintTop_toBottomOf="@id/textview_svep_contrast_ratio" />
+
+    <SeekBar
+        android:id="@+id/seekbar_svep_enhance_rate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="40dp"
+        android:max="10"
+        app:layout_constraintEnd_toStartOf="@+id/textview_svep_enhance_rate_value"
+        app:layout_constraintStart_toStartOf="@id/textview_svep_enhance_rate"
+        app:layout_constraintTop_toBottomOf="@id/textview_svep_enhance_rate" />
+
+    <TextView
+        android:id="@+id/textview_svep_mode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="@string/ai_svep_mode"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent" />
+
+    <TextView
+        android:id="@+id/textview_svep_global_ui"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="@string/ai_svep_global_ui"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textview_svep_mode" />
+
+    <TextView
+        android:id="@+id/textview_svep_contrast_mode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="@string/ai_svep_contrast_mode"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textview_svep_global_ui" />
+
+    <TextView
+        android:id="@+id/textview_svep_contrast_mode_summary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/ai_svep_contrast_mode_summary"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textview_svep_contrast_mode" />
+
+    <TextView
+        android:id="@+id/textview_svep_contrast_ratio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="@string/ai_svep_contrast_ratio"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textview_svep_global_ui" />
+
+    <TextView
+        android:id="@+id/textview_svep_enhance_rate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="@string/ai_svep_enhance_rate"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textview_svep_contrast_ratio" />
+
+    <TextView
+        android:id="@+id/textview_svep_contrast_ratio_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="50"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textview_svep_contrast_mode"
+        app:layout_constraintTop_toTopOf="@id/seekbar_svep_contrast_ratio" />
+
+    <TextView
+        android:id="@+id/textview_svep_enhance_rate_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="50"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textview_svep_contrast_mode"
+        app:layout_constraintTop_toTopOf="@id/seekbar_svep_enhance_rate" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

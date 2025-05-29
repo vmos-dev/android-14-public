@@ -1,0 +1,23 @@
+package {
+    // http://go/android-license-faq
+    default_applicable_licenses: ["Android-Apache-2.0"],
+}
+
+android_app {
+    name: "LegacyCamera",
+
+    srcs: ["src/**/*.java"],
+
+    //sdk_version: "current",
+
+    platform_apis: true,
+
+    jni_libs: ["libjni_legacymosaic"],
+
+    optional_uses_libs: ["com.google.android.media.effects"],
+
+    optimize: {
+        proguard_flags_files: ["proguard.flags"],
+    },
+
+}

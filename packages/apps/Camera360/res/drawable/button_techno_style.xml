@@ -1,0 +1,19 @@
+<!-- res/drawable/button_techno.xml -->
+
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#334285f4" /> <!-- 按钮背景色 -->
+    <corners android:radius="4dp" /> <!-- 圆角半径 -->
+    <padding
+        android:left="12dp"
+        android:top="12dp"
+        android:right="12dp"
+        android:bottom="12dp" /> <!-- 按钮内边距 -->
+
+    <stroke
+        android:color="#3367d6"
+        android:width="2dp" /> <!-- 边框颜色和宽度 -->
+
+    <size
+        android:width="120dp"
+        android:height="48dp" /> <!-- 按钮宽度和高度 -->
+</shape>

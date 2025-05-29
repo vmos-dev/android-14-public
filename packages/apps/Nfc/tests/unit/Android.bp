@@ -1,0 +1,44 @@
+package {
+    default_applicable_licenses: ["Android-Apache-2.0"],
+}
+
+android_test {
+    name: "NfcNciUnitTests",
+
+    certificate: "platform",
+
+    libs: [
+        "android.test.runner",
+        "android.test.base",
+        "android.test.mock",
+    ],
+
+    static_libs: [
+        "androidx.test.core",
+        "androidx.test.rules",
+        "androidx.test.ext.junit",
+        "mockito-target-extended-minus-junit4",
+        "truth-prebuilt",
+        "androidx.annotation_annotation",
+        "androidx.appcompat_appcompat",
+        "com.google.android.material_material",
+    ],
+
+    jni_libs: [
+        // Required for ExtendedMockito
+        "libdexmakerjvmtiagent",
+        "libstaticjvmtiagent",
+    ],
+
+    // Include all test java files.
+    srcs: [
+      "src/**/*.java",
+      ":nfc-sources",
+    ],
+
+    platform_apis: true,
+
+    test_suites: ["device-tests"],
+
+    instrumentation_for: "NfcNci",
+}

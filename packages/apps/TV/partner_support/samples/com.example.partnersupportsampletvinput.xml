@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<permissions>
+    <privapp-permissions package="com.example.partnersupportsampletvinput">
+        <permission name="android.permission.TV_INPUT_HARDWARE"/>
+    </privapp-permissions>
+</permissions>

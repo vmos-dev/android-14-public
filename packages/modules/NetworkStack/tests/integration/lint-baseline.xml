@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<issues format="5" by="lint 4.1.0" client="cli" variant="all" version="4.1.0">
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 30 (current min is 29): `android.net.LinkProperties#getDhcpServerAddress`">
+        <location
+            file="packages/modules/NetworkStack/tests/integration/common/android/net/ip/IpClientIntegrationTestCommon.java"
+            line="1574"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 30 (current min is 29): `android.net.LinkProperties#getNat64Prefix`">
+        <location
+            file="packages/modules/NetworkStack/tests/integration/common/android/net/ip/IpClientIntegrationTestCommon.java"
+            line="2014"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 30 (current min is 29): `android.net.LinkProperties#getNat64Prefix`">
+        <location
+            file="packages/modules/NetworkStack/tests/integration/common/android/net/ip/IpClientIntegrationTestCommon.java"
+            line="2020"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 30 (current min is 29): `android.net.LinkProperties#getNat64Prefix`">
+        <location
+            file="packages/modules/NetworkStack/tests/integration/common/android/net/ip/IpClientIntegrationTestCommon.java"
+            line="2050"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 30 (current min is 29): `android.net.LinkProperties#getNat64Prefix`">
+        <location
+            file="packages/modules/NetworkStack/tests/integration/common/android/net/ip/IpClientIntegrationTestCommon.java"
+            line="2051"/>
+    </issue>
+
+</issues>

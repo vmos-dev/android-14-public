@@ -1,0 +1,12 @@
+{
+  "avf-presubmit" : [
+    {
+      "name" : "ZipFuseTest"
+    }
+  ],
+  "hwasan-postsubmit" : [
+    {
+      "name" : "ZipFuseTest"
+    }
+  ]
+}

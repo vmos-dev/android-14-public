@@ -1,0 +1,34 @@
+{
+  "presubmit": [
+    {
+      "name": "SettingsSpaUnitTests"
+    },
+    {
+      "name": "SettingsUnitTests",
+      "options": [
+        {
+          "include-filter": "com.android.settings.password"
+        },
+        {
+          "include-filter": "com.android.settings.biometrics"
+        },
+        {
+          "include-filter": "com.android.settings.biometrics2"
+        }
+      ]
+    }
+  ],
+  "postsubmit": [
+    {
+      "name": "SettingsUnitTests",
+      "options": [
+        {
+          "exclude-annotation": "androidx.test.filters.FlakyTest"
+        }
+      ]
+    },
+    {
+      "name": "SettingsPerfTests"
+    }
+  ]
+}

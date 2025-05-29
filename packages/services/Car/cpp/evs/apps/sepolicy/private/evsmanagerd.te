@@ -1,0 +1,8 @@
+# Allow to perform a binder IPC to evsmanagerd and vice versa
+binder_call(evs_app, evsmanagerd)
+binder_call(evsmanagerd, evs_app)
+
+hal_client_domain(evsmanagerd, hal_graphics_allocator);
+hal_client_domain(evsmanagerd, hal_graphics_composer)
+hal_client_domain(evsmanagerd, hal_configstore)
+allow evsmanagerd hal_graphics_allocator:fd use;

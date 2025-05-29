@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<rk_avm_algo>
+	<camera>
+		<camera_number>4</camera_number>
+		<car_model>/vendor/etc/camera/AppData_rk/NVP6188-AHD/Content/models/ferrari.dae</car_model>
+		<calib_result>/vendor/etc/camera/AppData_rk/NVP6188-AHD/output</calib_result>
+		<file_content>/vendor/etc/camera/AppData_rk/NVP6188-AHD/Content</file_content>
+		<sensor_input_width>1920</sensor_input_width>
+		<sensor_input_height>1080</sensor_input_height>
+		<render_display_width>1920</render_display_width>
+		<render_display_height>1080</render_display_height>
+		<cam_input_bpp>32</cam_input_bpp>
+		<car_model_x_scale>2</car_model_x_scale>
+		<car_model_y_scale>2</car_model_y_scale>
+		<car_model_z_scale>2</car_model_z_scale>
+		<camera1>
+			<dev_id>0</dev_id>
+		</camera1>
+		<camera2>
+			<dev_id>1</dev_id>
+		</camera2>
+		<camera3>
+			<dev_id>2</dev_id>
+		</camera3>
+		<camera4>
+			<dev_id>3</dev_id>
+		</camera4>
+	</camera>
+</rk_avm_algo>

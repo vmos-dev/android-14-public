@@ -1,0 +1,167 @@
+// Copyright (C) 2019 The Android Open Source Project
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+//
+
+//#################################
+package {
+    default_applicable_licenses: ["Android-Apache-2.0"],
+}
+
+cc_binary {
+    name: "evs_app",
+    defaults: [
+        "android.hardware.graphics.common-ndk_shared",
+        "vhalclient_defaults",
+    ],
+    local_include_dirs: ["inc"],
+    srcs: ["src/*.cpp"],
+    shared_libs: [
+        "android.hardware.automotive.vehicle@2.0",
+        "android.hardware.camera.device@3.2",
+        "libEGL",
+        "libGLESv2",
+        "libbase",
+        "libbinder",
+        "libbinder_ndk",
+        "libcamera_metadata",
+        "libcartelemetry-evs-proto",
+        "libcutils",
+        "libhardware",
+        "libpng",
+        "libprotobuf-cpp-lite",
+        "libui",
+        "libutils",
+        "libopencv_core",
+        "libopencv_imgcodecs",
+        "libopencv_imgproc",
+        "libc++_shared",
+        "librga",
+        "libassimp",
+        "lib_render_3d",
+    ],
+    static_libs: [
+        "android.frameworks.automotive.telemetry-V1-ndk",
+        "android.hardware.automotive.evs-V2-ndk",
+        "android.hardware.common-V2-ndk",
+        "libaidlcommonsupport",
+        "libmath",
+        "libjsoncpp",
+        "libvhalclient",
+    ],
+    required: [
+        "config.json",
+        "CarFromTop.png",
+        "LabeledChecker.png",
+    ],
+    init_rc: ["evs_app.rc"],
+    cflags: [
+        "-DLOG_TAG=\"EvsApp\"",
+        "-DGL_GLEXT_PROTOTYPES",
+        "-DEGL_EGLEXT_PROTOTYPES",
+        "-DRKAVM=1",
+        "-Wall",
+        "-Werror",
+        "-Wunused",
+        "-Wunreachable-code",
+    ],
+}
+
+cc_prebuilt_library_shared {
+	name: "libopencv_core",
+	compile_multilib: "first",
+	srcs: ["res/rkrender/arm-v8a/libopencv_core.so"],
+	owner: "evs_app",
+	proprietary: false,
+	shared_libs: ["liblog", "libz"],
+}
+
+cc_prebuilt_library_shared {
+	name: "libopencv_imgcodecs",
+	compile_multilib: "first",
+	srcs: ["res/rkrender/arm-v8a/libopencv_imgcodecs.so"],
+	owner: "evs_app",
+	proprietary: false,
+	shared_libs: ["libopencv_core", "libopencv_imgproc", "libz"],
+}
+
+cc_prebuilt_library_shared {
+	name: "libopencv_imgproc",
+	compile_multilib: "first",
+	srcs: ["res/rkrender/arm-v8a/libopencv_imgproc.so"],
+	owner: "evs_app",
+	proprietary: false,
+	shared_libs: ["libopencv_core", "libz"],
+}
+
+cc_prebuilt_library_shared {
+	name: "libassimp",
+	compile_multilib: "first",
+	srcs: ["res/rkrender/lib64/libassimp.so"],
+	owner: "evs_app",
+	proprietary: false,
+	shared_libs: ["liblog", "libandroid", "libc++_shared"],
+}
+
+cc_prebuilt_library_shared {
+	name: "lib_render_3d",
+	compile_multilib: "first",
+	srcs: ["res/rkrender/lib64/lib_render_3d.so"],
+	owner: "evs_app",
+	proprietary: false,
+	shared_libs: ["libEGL",
+                   "libGLESv2",
+                   "libassimp",
+                   "libc++",
+                   "libdrm",
+                   "liblog",
+                   "libnativewindow",
+                   "libopencv_core",
+                   "libopencv_imgcodecs",
+                   "libopencv_imgproc",
+                   "librga",
+                   "libui",
+                   "libutils",
+                   "libdmabufheap",
+                   "libcutils",
+                   "libxml2"],
+}
+
+cc_library {
+    name: "libcartelemetry-evs-proto",
+    srcs: [":cartelemetry-evs-proto-srcs"],
+    proto: {
+        export_proto_headers: true,
+        type: "lite",
+    },
+    shared_libs: ["libprotobuf-cpp-lite"],
+}
+
+prebuilt_etc {
+    name: "config.json",
+    src: "res/config.json",
+    sub_dir: "automotive/evs",
+}
+
+prebuilt_etc {
+    name: "CarFromTop.png",
+    src: "res/CarFromTop.png",
+    sub_dir: "automotive/evs",
+}
+
+prebuilt_etc {
+    name: "LabeledChecker.png",
+    src: "res/LabeledChecker.png",
+    sub_dir: "automotive/evs",
+}

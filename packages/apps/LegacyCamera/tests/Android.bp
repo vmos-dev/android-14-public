@@ -1,0 +1,21 @@
+package {
+    // http://go/android-license-faq
+    default_applicable_licenses: ["Android-Apache-2.0"],
+}
+
+android_test {
+    name: "LegacyCameraTests",
+
+    libs: [
+        "android.test.runner",
+        "android.test.base",
+    ],
+    static_libs: ["junit"],
+
+    srcs: ["src/**/*.java"],
+
+    platform_apis: true,
+
+    instrumentation_for: "LegacyCamera",
+
+}
