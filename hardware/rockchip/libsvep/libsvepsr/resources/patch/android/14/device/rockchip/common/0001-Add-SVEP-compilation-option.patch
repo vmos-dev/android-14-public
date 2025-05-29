@@ -1,0 +1,46 @@
+From 785ab5682580b0bd2fba6de73e1970f18cab8576 Mon Sep 17 00:00:00 2001
+From: libin <bin.li@rock-chips.com>
+Date: Wed, 31 Jan 2024 17:40:02 +0800
+Subject: [PATCH] Add SVEP compilation option
+
+Signed-off-by: libin <bin.li@rock-chips.com>
+Change-Id: I24174bafb469dacf03eb62ec7e7a70a334b514fb
+---
+ BoardConfig.mk | 5 +++++
+ device.mk      | 9 +++++++++
+ 2 files changed, 14 insertions(+)
+
+diff --git a/BoardConfig.mk b/BoardConfig.mk
+index 07f7801e..32710823 100644
+--- a/BoardConfig.mk
++++ b/BoardConfig.mk
+@@ -435,3 +435,8 @@ ifeq ($(call math_gt_or_eq,$(ROCKCHIP_LUNCHING_API_LEVEL),34),true)
+     TARGET_USES_HWC3_AIDL := true
+ endif
+ 
++# SVEP for Android.mk
++# SR enable macro
++BOARD_USES_LIBSVEP_SR ?= false
++# MEMC enable macro
++BOARD_USES_LIBSVEP_MEMC ?= false
+diff --git a/device.mk b/device.mk
+index 99cb5de2..ec55b762 100644
+--- a/device.mk
++++ b/device.mk
+@@ -846,3 +846,12 @@ ifeq ($(strip $(BOARD_SHOW_PICTURE_SETTING)), true)
+ 	PRODUCT_PROPERTY_OVERRIDES += \
+     ro.vendor.picture_settings=true
+ endif
++
++
++# SVEP
++ifneq (,$(filter true, $(strip $(BOARD_USES_LIBSVEP_SR)) $(strip $(BOARD_USES_LIBSVEP_MEMC)) $(strip $(BOARD_USES_LIBSVEP))))
++    # will disable frame pending by svep running
++    PRODUCT_PROPERTY_OVERRIDES += \
++        debug.sf.disable_frame_pending_by_svep_running=1
++
++endif
+\ No newline at end of file
+-- 
+2.25.1
+

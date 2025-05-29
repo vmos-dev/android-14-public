@@ -1,0 +1,9 @@
+service vendor.rvcam-1-0 /vendor/bin/hw/vendor.rockchip.automotive.camera.rvcam@1.0-service
+    class hal
+    priority -20
+    user cameraserver
+    group audio camera input drmrpc usb
+    ioprio rt 4
+    capabilities SYS_NICE
+    task_profiles CameraServiceCapacity MaxPerformance
+

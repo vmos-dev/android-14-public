@@ -1,0 +1,1 @@
+/(vendor|system/vendor)/bin/hw/android\.hardware\.usb\.gadget-service\.rockchip     u:object_r:hal_usb_gadget_default_exec:s0

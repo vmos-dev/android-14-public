@@ -1,0 +1,26 @@
+aidl_interface {
+    name: "rockchip.hwc.proxy.aidl",
+    vendor_available: true,
+    srcs: [
+        "rockchip/hwc/proxy/aidl/*.aidl",
+    ],
+    stability: "vintf",
+    backend: {
+        java: {
+            platform_apis: true,
+        },
+        cpp: {
+            enabled: true,
+        },
+        ndk: {
+            enabled: true,
+        },
+    },
+    versions_with_info: [
+        {
+            version: "1",
+            imports: [],
+        },
+    ],
+
+}

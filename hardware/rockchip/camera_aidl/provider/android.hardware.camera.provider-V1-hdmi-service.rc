@@ -1,0 +1,8 @@
+service vendor.camera.provider-hdmi /vendor/bin/hw/android.hardware.camera.provider-V1-hdmi-service
+    interface aidl android.hardware.camera.provider.ICameraProvider/hdmi/0
+    class hal
+    user cameraserver
+    group audio camera input drmrpc usb
+    ioprio rt 4
+    capabilities SYS_NICE
+    task_profiles CameraServiceCapacity MaxPerformance

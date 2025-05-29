@@ -1,0 +1,2 @@
+/(vendor|system/vendor)/bin/hw/android\.hardware\.automotive\.vehicle@2\.0-rvcam-(service|protocan-service)  u:object_r:hal_vehicle_default_exec:s0
+/dev/vehicle  u:object_r:vehicle_device:s0

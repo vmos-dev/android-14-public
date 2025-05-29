@@ -1,0 +1,4 @@
+service vendor.rockchip_hwcproxy_aidl /vendor/bin/hw/rockchip.hwc.proxy-service
+    class hal
+    user root
+    group system

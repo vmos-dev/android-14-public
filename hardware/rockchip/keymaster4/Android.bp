@@ -1,0 +1,271 @@
+cc_binary {
+    name: "android.hardware.security.keymint-service.optee",
+    relative_install_path: "hw",
+    init_rc: ["android.hardware.security.keymint-service.optee.rc"],
+    vintf_fragments: [
+        "android.hardware.security.keymint-service.optee.xml",
+        "android.hardware.security.sharedsecret-service.optee.xml",
+        "android.hardware.security.secureclock-service.optee.xml",
+    ],
+    vendor: true,
+    cflags: [
+        "-Wall",
+        "-Wextra",
+    ],
+    include_dirs:[
+        "system/keymaster/include",
+        "system/keymaster/ng/include",
+    ],
+    defaults: [
+        "keymint_use_latest_hal_aidl_ndk_shared",
+    ],
+    shared_libs: [
+        "android.hardware.security.rkp-V3-ndk",
+        "android.hardware.security.sharedsecret-V1-ndk",
+        "android.hardware.security.secureclock-V1-ndk",
+        "libbase",
+        "libbinder_ndk",
+        "libcppbor_external",
+        "libcrypto",
+        "libRkkeymaster_portable",
+        "libRksoftkeymasterdevice",
+        "libRkkeymaster4",
+        "libRkkeymint",
+        "liblog",
+        "libRkpuresoftkeymasterdevice",
+        "libhardware",
+        "lib_Rk_keymaster_keymint_utils",
+        "android.hardware.keymaster@4.0",
+        "libkeymaster4support",
+        "libRkkeymaster_messages",
+        "libRkcppcose_rkp",
+        "libRkTeeKeymaster",
+        "libRksoft_attestation_cert",
+        "libutils",
+    ],
+    srcs: [
+        "keymint_service.cpp",
+    ],
+    required: [
+        "android.hardware.hardware_keystore.xml",
+    ],
+}
+
+cc_prebuilt_library_shared {
+    name: "libRksoftkeymasterdevice",
+    compile_multilib: "both",
+    multilib: {
+        lib64: {
+            srcs: ["prebuilts/arm64/libRksoftkeymasterdevice.so"],
+        },
+        lib32: {
+            srcs: ["prebuilts/arm/libRksoftkeymasterdevice.so"],
+        },
+    },
+    strip: {
+        none: true,
+    },
+    check_elf_files: false,
+    vendor: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libRkpuresoftkeymasterdevice",
+    compile_multilib: "both",
+    multilib: {
+        lib64: {
+            srcs: ["prebuilts/arm64/libRkpuresoftkeymasterdevice.so"],
+        },
+        lib32: {
+            srcs: ["prebuilts/arm/libRkpuresoftkeymasterdevice.so"],
+        },
+    },
+    strip: {
+        none: true,
+    },
+    check_elf_files: false,
+    vendor: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libRkkeymint",
+    compile_multilib: "both",
+    multilib: {
+        lib64: {
+            srcs: ["prebuilts/arm64/libRkkeymint.so"],
+        },
+        lib32: {
+            srcs: ["prebuilts/arm/libRkkeymint.so"],
+        },
+    },
+    strip: {
+        none: true,
+    },
+    check_elf_files: false,
+    vendor: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libRkkeymaster_portable",
+    compile_multilib: "both",
+    multilib: {
+        lib64: {
+            srcs: ["prebuilts/arm64/libRkkeymaster_portable.so"],
+        },
+        lib32: {
+            srcs: ["prebuilts/arm/libRkkeymaster_portable.so"],
+        },
+    },
+    strip: {
+        none: true,
+    },
+    check_elf_files: false,
+    vendor: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libRkkeymaster4",
+    compile_multilib: "both",
+    multilib: {
+        lib64: {
+            srcs: ["prebuilts/arm64/libRkkeymaster4.so"],
+        },
+        lib32: {
+            srcs: ["prebuilts/arm/libRkkeymaster4.so"],
+        },
+    },
+    strip: {
+        none: true,
+    },
+    check_elf_files: false,
+    vendor: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libRkkeymaster_messages",
+    compile_multilib: "both",
+    multilib: {
+        lib64: {
+            srcs: ["prebuilts/arm64/libRkkeymaster_messages.so"],
+        },
+        lib32: {
+            srcs: ["prebuilts/arm/libRkkeymaster_messages.so"],
+        },
+    },
+    strip: {
+        none: true,
+    },
+    check_elf_files: false,
+    vendor: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libRksoft_attestation_cert",
+    compile_multilib: "both",
+    multilib: {
+        lib64: {
+            srcs: ["prebuilts/arm64/libRksoft_attestation_cert.so"],
+        },
+        lib32: {
+            srcs: ["prebuilts/arm/libRksoft_attestation_cert.so"],
+        },
+    },
+    strip: {
+        none: true,
+    },
+    check_elf_files: false,
+    vendor: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "lib_Rk_keymaster_keymint_utils",
+    compile_multilib: "both",
+    multilib: {
+        lib64: {
+            srcs: ["prebuilts/arm64/lib_Rk_keymaster_keymint_utils.so"],
+        },
+        lib32: {
+            srcs: ["prebuilts/arm/lib_Rk_keymaster_keymint_utils.so"],
+        },
+    },  
+    strip: {
+        none: true,
+    },
+    check_elf_files: false,
+    vendor: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libRkcppcose_rkp",
+    compile_multilib: "both",
+    multilib: {
+        lib64: {
+            srcs: ["prebuilts/arm64/libRkcppcose_rkp.so"],
+        },
+        lib32: {
+            srcs: ["prebuilts/arm/libRkcppcose_rkp.so"],
+        },
+    },
+    strip: {
+        none: true,
+    },
+    check_elf_files: false,
+    vendor: true,
+}
+
+cc_rockchip_prebuilt_library_shared {
+
+    name: "libRkTeeKeymaster",
+    strip: {
+        none: true,
+    },
+    check_elf_files: false,
+    vendor: true,
+    optee: true,
+}
+
+cc_rockchip_prebuilt_obj {
+    name: "258be795-f9ca-40e6-a8699ce6886c5d5d.ta",
+    src:  "v1/ta/258be795-f9ca-40e6-a8699ce6886c5d5d.ta",
+    vendor: true,
+    sub_dir: "lib/optee_armtz",
+}
+
+cc_rockchip_prebuilt_obj {
+    name: "258be795-f9ca-40e6-a869-9ce6886c5d5d.ta",
+    src: "v2/ta/258be795-f9ca-40e6-a869-9ce6886c5d5d.ta",
+    vendor: true,
+    sub_dir: "lib/optee_armtz",
+}
+
+
+cc_binary {
+    name: "android.hardware.keymaster@4.0-service.optee",
+    defaults: ["hidl_defaults"],
+    relative_install_path: "hw",
+    vendor: true,
+    init_rc: ["android.hardware.keymaster@4.0-service.optee.rc"],
+    vintf_fragments: ["android.hardware.keymaster@4.0-service.optee.xml"],
+    srcs: [
+        "service.cpp",
+    ],
+
+    shared_libs: [
+        "android.hardware.keymaster@4.0",
+        "libkeymaster4support",
+        "libbase",
+        "libcutils",
+        "libhardware",
+        "libhidlbase",
+        "libRkkeymaster4",
+        "libRkkeymaster_messages",
+        "libRkkeymaster_portable",
+        "libRkpuresoftkeymasterdevice",
+        "libcppbor_external",
+        "libRkcppcose_rkp",
+        "libRkTeeKeymaster",
+        "libRksoft_attestation_cert",
+        "liblog",
+        "libutils",
+    ],
+}

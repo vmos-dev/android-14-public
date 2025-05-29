@@ -1,0 +1,13 @@
+version : ver_1.1_20230925
+
+=================================================================
+system/security/provisioner
+
+icommit ede34beb8bb19fb03261fd2eeffb858713df8902 
+Author: callen.cai <callen.cai@rock-chips.com>
+Date:   Mon Sep 25 16:18:11 2023 +0800
+
+    rkp_factory_extraction_tool : support rkp csr generate and save.
+    
+    Signed-off-by: callen.cai <callen.cai@rock-chips.com>
+    Change-Id: Ia25f12bd920c1d791529b4baaea1c93fad251b57

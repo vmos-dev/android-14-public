@@ -1,0 +1,65 @@
+cc_prebuilt_binary {
+    name: "android.hardware.automotive.vehicle@2.0-rvcam-service",
+    proprietary: true,
+    compile_multilib: "64",
+    defaults: ["vhal_v2_0_target_defaults", "rvcam_vhal_hidl_defaults"],
+    vintf_fragments: [
+        "vendor/etc/vintf/manifest/android.hardware.automotive.vehicle@2.0-rvcam-service.xml",
+    ],
+    init_rc: ["vendor/etc/init/android.hardware.automotive.vehicle@2.0-rvcam-service.rc"],
+    vendor: true,
+    relative_install_path: "hw",
+    srcs: ["vendor/bin/hw/android.hardware.automotive.vehicle@2.0-rvcam-service"],
+    shared_libs: [
+        "libbase",
+        "libjsoncpp",
+        "libprotobuf-cpp-lite",
+        "android.hardware.automotive.vehicle@2.0",
+    ],
+    strip: {
+        none: true,
+    },
+    check_elf_files: false,
+}
+
+cc_defaults {
+    name: "FakeVehicleHardwareDefaultsRvcam",
+    header_libs: [
+        "IVehicleHardware",
+    ],
+    export_header_lib_headers: ["IVehicleHardware"],
+    required: [
+        "Prebuilt_VehicleHalDefaultProperties_JSON",
+        "Prebuilt_VehicleHalTestProperties_JSON",
+        "Prebuilt_VehicleHalVendorClusterTestProperties_JSON",
+    ],
+    shared_libs: [
+        "libjsoncpp",
+        "libprotobuf-cpp-full",
+    ],
+}
+
+cc_prebuilt_binary {
+    name: "android.hardware.automotive.vehicle@V1-rvcam-service",
+    proprietary: true,
+    compile_multilib: "64",
+    vendor: true,
+    defaults: [
+        "FakeVehicleHardwareDefaultsRvcam",
+        "VehicleHalDefaults",
+        "android-automotive-large-parcelable-defaults",
+        "rvcam_vhal_aidl_defaults",
+    ],
+    vintf_fragments: ["vendor/etc/vintf/manifest/vhal-rvcam-service.xml"],
+    init_rc: ["vendor/etc/init/vhal-rvcam-service.rc"],
+    relative_install_path: "hw",
+    srcs: ["vendor/bin/hw/android.hardware.automotive.vehicle@V1-rvcam-service"],
+    shared_libs: [
+        "libbinder_ndk",
+        "android.hardware.automotive.vehicle@2.0",
+    ],
+    strip: {
+        none: true,
+    },
+    check_elf_files: false,
+}

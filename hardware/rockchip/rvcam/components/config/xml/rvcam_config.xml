@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CameraConfig version="0x100">
+  <board name="Rockchip RK3588 VEHICLE EVB V22 Board">
+    <cameras>
+      <camera id="0">
+        <entity>m00_b_max96712 6-0029</entity>
+        <subDev>/dev/v4l-subdev5</subDev>
+        <mbusCode>UYVY2X8/1920x1440</mbusCode>
+        <channels>
+          <channel id="0" dev="/dev/video11">
+            <cameraModel>TXD</cameraModel>
+            <stream id="0" format="YUYV" width="1920" height="1440" bufCnt="4"/>
+          </channel>
+          <channel id="1" dev="/dev/video12">
+            <cameraModel>TXD</cameraModel>
+            <stream id="0" format="YUYV" width="1920" height="1440" bufCnt="4"/>
+          </channel>
+          <channel id="2" dev="/dev/video13">
+            <cameraModel>TXD</cameraModel>
+            <stream id="0" format="YUYV" width="1920" height="1440" bufCnt="4"/>
+          </channel>
+          <channel id="3" dev="/dev/video14">
+            <cameraModel>TXD</cameraModel>
+            <stream id="0" format="YUYV" width="1920" height="1440" bufCnt="4"/>
+          </channel>
+        </channels>
+      </camera>
+      <camera id="1">
+        <entity>m00_b_max96756 7-0048</entity>
+        <subDev>/dev/v4l-subdev2</subDev>
+        <mbusCode>BGR888_1X24/1920x1080</mbusCode>
+        <channels>
+          <channel id="0" dev="/dev/video0">
+            <cameraModel>X66</cameraModel>
+            <stream id="0" format="BGR3" width="1920" height="1080" bufCnt="4"/>
+          </channel>
+        </channels>
+      </camera>
+    </cameras>
+    <inputMapping>
+      <inputMap camId="0">
+        <inputSrc cameraId="0" channelId="0" streamId="0"/>
+      </inputMap>
+      <inputMap camId="1">
+        <inputSrc cameraId="0" channelId="1" streamId="0"/>
+      </inputMap>
+      <inputMap camId="2">
+        <inputSrc cameraId="0" channelId="2" streamId="0"/>
+      </inputMap>
+      <inputMap camId="3">
+        <inputSrc cameraId="0" channelId="3" streamId="0"/>
+      </inputMap>
+      <inputMap camId="4">
+        <inputSrc cameraId="0" channelId="0" streamId="0"/>
+      </inputMap>
+      <inputMap camId="5">
+        <inputSrc cameraId="0" channelId="1" streamId="0"/>
+      </inputMap>
+      <inputMap camId="6">
+        <inputSrc cameraId="0" channelId="2" streamId="0"/>
+      </inputMap>
+      <inputMap camId="7">
+        <inputSrc cameraId="0" channelId="3" streamId="0"/>
+      </inputMap>
+      <inputMap camId="8">
+        <inputSrc cameraId="0" channelId="0" streamId="0"/>
+      </inputMap>
+      <inputMap camId="9">
+        <inputSrc cameraId="0" channelId="1" streamId="0"/>
+      </inputMap>
+      <inputMap camId="10">
+        <inputSrc cameraId="0" channelId="2" streamId="0"/>
+      </inputMap>
+      <inputMap camId="11">
+        <inputSrc cameraId="0" channelId="3" streamId="0"/>
+      </inputMap>
+      <inputMap camId="12">
+        <inputSrc cameraId="1" channelId="0" streamId="0"/>
+      </inputMap>
+    </inputMapping>
+  </board>
+  <board name="Rockchip RK3588 VEHICLE EVB V21 Board">
+    <cameras>
+      <camera id="0">
+        <entity>m00_b_max96712 6-0029</entity>
+        <subDev>/dev/v4l-subdev5</subDev>
+        <mbusCode>UYVY2X8/1920x1440</mbusCode>
+        <channels>
+          <channel id="0" dev="/dev/video0">
+            <cameraModel>TXD</cameraModel>
+            <stream id="0" format="YUYV" width="1920" height="1440" bufCnt="4"/>
+          </channel>
+          <channel id="1" dev="/dev/video1">
+            <cameraModel>TXD</cameraModel>
+            <stream id="0" format="YUYV" width="1920" height="1440" bufCnt="4"/>
+          </channel>
+          <channel id="2" dev="/dev/video2">
+            <cameraModel>TXD</cameraModel>
+            <stream id="0" format="YUYV" width="1920" height="1440" bufCnt="4"/>
+          </channel>
+          <channel id="3" dev="/dev/video3">
+            <cameraModel>TXD</cameraModel>
+            <stream id="0" format="YUYV" width="1920" height="1440" bufCnt="4"/>
+          </channel>
+        </channels>
+      </camera>
+    </cameras>
+    <inputMapping>
+      <inputMap camId="0">
+        <inputSrc cameraId="0" channelId="0" streamId="0"/>
+      </inputMap>
+      <inputMap camId="1">
+        <inputSrc cameraId="0" channelId="1" streamId="0"/>
+      </inputMap>
+      <inputMap camId="2">
+        <inputSrc cameraId="0" channelId="2" streamId="0"/>
+      </inputMap>
+      <inputMap camId="3">
+        <inputSrc cameraId="0" channelId="3" streamId="0"/>
+      </inputMap>
+      <inputMap camId="4">
+        <inputSrc cameraId="0" channelId="0" streamId="0"/>
+      </inputMap>
+      <inputMap camId="5">
+        <inputSrc cameraId="0" channelId="1" streamId="0"/>
+      </inputMap>
+      <inputMap camId="6">
+        <inputSrc cameraId="0" channelId="2" streamId="0"/>
+      </inputMap>
+      <inputMap camId="7">
+        <inputSrc cameraId="0" channelId="3" streamId="0"/>
+      </inputMap>
+      <inputMap camId="8">
+        <inputSrc cameraId="0" channelId="0" streamId="0"/>
+      </inputMap>
+      <inputMap camId="9">
+        <inputSrc cameraId="0" channelId="1" streamId="0"/>
+      </inputMap>
+      <inputMap camId="10">
+        <inputSrc cameraId="0" channelId="2" streamId="0"/>
+      </inputMap>
+      <inputMap camId="11">
+        <inputSrc cameraId="0" channelId="3" streamId="0"/>
+      </inputMap>
+    </inputMapping>
+  </board>
+  <board name="Rockchip RK3588 VEHICLE EVB V20 Board">
+    <cameras>
+      <camera id="0">
+        <entity>m00_b_nvp6188 6-0029</entity>
+        <subDev>/dev/v4l-subdev2</subDev>
+        <mbusCode>UYVY2X8/1920x1080</mbusCode>
+        <channels>
+          <channel id="0" dev="/dev/video0">
+            <cameraModel>AHD</cameraModel>
+            <stream id="0" format="YUYV" width="1920" height="1080" bufCnt="4"/>
+          </channel>
+          <channel id="1" dev="/dev/video1">
+            <cameraModel>AHD</cameraModel>
+            <stream id="0" format="YUYV" width="1920" height="1080" bufCnt="4"/>
+          </channel>
+          <channel id="2" dev="/dev/video2">
+            <cameraModel>AHD</cameraModel>
+            <stream id="0" format="YUYV" width="1920" height="1080" bufCnt="4"/>
+          </channel>
+          <channel id="3" dev="/dev/video3">
+            <cameraModel>AHD</cameraModel>
+            <stream id="0" format="YUYV" width="1920" height="1080" bufCnt="4"/>
+          </channel>
+        </channels>
+      </camera>
+    </cameras>
+    <inputMapping>
+      <inputMap camId="0">
+        <inputSrc cameraId="0" channelId="0" streamId="0"/>
+      </inputMap>
+      <inputMap camId="1">
+        <inputSrc cameraId="0" channelId="1" streamId="0"/>
+      </inputMap>
+      <inputMap camId="2">
+        <inputSrc cameraId="0" channelId="2" streamId="0"/>
+      </inputMap>
+      <inputMap camId="3">
+        <inputSrc cameraId="0" channelId="3" streamId="0"/>
+      </inputMap>
+      <inputMap camId="4">
+        <inputSrc cameraId="0" channelId="0" streamId="0"/>
+      </inputMap>
+      <inputMap camId="5">
+        <inputSrc cameraId="0" channelId="1" streamId="0"/>
+      </inputMap>
+      <inputMap camId="6">
+        <inputSrc cameraId="0" channelId="2" streamId="0"/>
+      </inputMap>
+      <inputMap camId="7">
+        <inputSrc cameraId="0" channelId="3" streamId="0"/>
+      </inputMap>
+      <inputMap camId="8">
+        <inputSrc cameraId="0" channelId="0" streamId="0"/>
+      </inputMap>
+      <inputMap camId="9">
+        <inputSrc cameraId="0" channelId="1" streamId="0"/>
+      </inputMap>
+      <inputMap camId="10">
+        <inputSrc cameraId="0" channelId="2" streamId="0"/>
+      </inputMap>
+      <inputMap camId="11">
+        <inputSrc cameraId="0" channelId="3" streamId="0"/>
+      </inputMap>
+    </inputMapping>
+  </board>
+  <board name="Rockchip RK3576 VEHICLE EVB V10 Board">
+    <cameras>
+      <camera id="0">
+        <entity>m00_b_max96712 6-0029</entity>
+        <subDev>/dev/v4l-subdev5</subDev>
+        <mbusCode>UYVY2X8/1920x1440</mbusCode>
+        <channels>
+          <channel id="0" dev="/dev/video0">
+            <cameraModel>TXD</cameraModel>
+            <stream id="0" format="YUYV" width="1920" height="1440" bufCnt="4"/>
+          </channel>
+          <channel id="1" dev="/dev/video1">
+            <cameraModel>TXD</cameraModel>
+            <stream id="0" format="YUYV" width="1920" height="1440" bufCnt="4"/>
+          </channel>
+          <channel id="2" dev="/dev/video2">
+            <cameraModel>TXD</cameraModel>
+            <stream id="0" format="YUYV" width="1920" height="1440" bufCnt="4"/>
+          </channel>
+          <channel id="3" dev="/dev/video3">
+            <cameraModel>TXD</cameraModel>
+            <stream id="0" format="YUYV" width="1920" height="1440" bufCnt="4"/>
+          </channel>
+        </channels>
+      </camera>
+    </cameras>
+    <inputMapping>
+      <inputMap camId="0">
+        <inputSrc cameraId="0" channelId="0" streamId="0"/>
+      </inputMap>
+      <inputMap camId="1">
+        <inputSrc cameraId="0" channelId="1" streamId="0"/>
+      </inputMap>
+      <inputMap camId="2">
+        <inputSrc cameraId="0" channelId="2" streamId="0"/>
+      </inputMap>
+      <inputMap camId="3">
+        <inputSrc cameraId="0" channelId="3" streamId="0"/>
+      </inputMap>
+      <inputMap camId="4">
+        <inputSrc cameraId="0" channelId="0" streamId="0"/>
+      </inputMap>
+      <inputMap camId="5">
+        <inputSrc cameraId="0" channelId="1" streamId="0"/>
+      </inputMap>
+      <inputMap camId="6">
+        <inputSrc cameraId="0" channelId="2" streamId="0"/>
+      </inputMap>
+      <inputMap camId="7">
+        <inputSrc cameraId="0" channelId="3" streamId="0"/>
+      </inputMap>
+      <inputMap camId="8">
+        <inputSrc cameraId="0" channelId="0" streamId="0"/>
+      </inputMap>
+      <inputMap camId="9">
+        <inputSrc cameraId="0" channelId="1" streamId="0"/>
+      </inputMap>
+      <inputMap camId="10">
+        <inputSrc cameraId="0" channelId="2" streamId="0"/>
+      </inputMap>
+      <inputMap camId="11">
+        <inputSrc cameraId="0" channelId="3" streamId="0"/>
+      </inputMap>
+    </inputMapping>
+  </board>
+
+</CameraConfig>

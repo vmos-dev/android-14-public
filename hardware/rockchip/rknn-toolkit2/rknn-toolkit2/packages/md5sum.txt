@@ -1,0 +1,6 @@
+4563df47280f31deb61de3d56cc449aa  rknn_toolkit2-2.0.0b0+9bab5682-cp310-cp310-linux_x86_64.whl
+8cca76132c890ab999e7decfd9c20ccb  rknn_toolkit2-2.0.0b0+9bab5682-cp311-cp311-linux_x86_64.whl
+c4e484468638a5f3f17e0c1af8d4297b  rknn_toolkit2-2.0.0b0+9bab5682-cp36-cp36m-linux_x86_64.whl
+eae6276e47995371eab7964ca42b807d  rknn_toolkit2-2.0.0b0+9bab5682-cp37-cp37m-linux_x86_64.whl
+09d8abe6f1ba08160b6be424c1c6ede5  rknn_toolkit2-2.0.0b0+9bab5682-cp38-cp38-linux_x86_64.whl
+ca0bc08878bd9249e07943bdd2b11f40  rknn_toolkit2-2.0.0b0+9bab5682-cp39-cp39-linux_x86_64.whl

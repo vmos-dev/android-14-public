@@ -1,0 +1,36 @@
+cc_prebuilt_binary {
+    name: "media-ctl",
+    allow_undefined_symbols: true,
+    proprietary: true,
+    recovery_available: true,
+    // These are already stripped, and restripping them just issues diagnostics.
+    strip: {
+        none: true,
+    },
+    arch: {
+        arm64: {
+            srcs: ["etc/tools/arm64/media-ctl"],
+        },
+        arm: {
+            srcs: ["etc/tools/arm/media-ctl"],
+        },
+    },
+}
+cc_prebuilt_binary {
+    name: "v4l2-ctl",
+    allow_undefined_symbols: true,
+    proprietary: true,
+    recovery_available: true,
+    // These are already stripped, and restripping them just issues diagnostics.
+    strip: {
+        none: true,
+    },
+    arch: {
+        arm64: {
+            srcs: ["etc/tools/arm64/v4l2-ctl"],
+        },
+        arm: {
+            srcs: ["etc/tools/arm/v4l2-ctl"],
+        },
+    },
+}

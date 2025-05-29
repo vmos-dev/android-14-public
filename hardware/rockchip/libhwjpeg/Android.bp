@@ -1,0 +1,53 @@
+cc_library_headers {
+    name: "libhwjpeg_headers",
+    vendor: true,
+    export_include_dirs: [
+        "inc",
+        "inc/mpp_inc",
+    ],
+}
+
+cc_library_shared {
+    name: "libhwjpeg",
+    vendor: true,
+
+    cppflags: [
+        "-std=c++11",
+        "-fno-threadsafe-statics",
+        "-Wno-sign-compare",
+    ],
+
+    srcs: [
+        "src/Utils.cpp",
+        "src/QList.cpp",
+        "src/BitReader.cpp",
+        "src/JpegParser.cpp",
+        "src/ExifBuilder.cpp",
+        "src/RKExifWrapper.cpp",
+        "src/MpiJpegEncoder.cpp",
+        "src/MpiJpegDecoder.cpp",
+    ],
+
+    shared_libs: [
+        "libutils",
+        "libcutils",
+        "liblog",
+        "libmpp",
+        "librga",
+    ],
+
+    include_dirs: [
+        "hardware/rockchip/librga/include",
+        "hardware/rockchip/librga/im2d_api",
+    ],
+
+    header_libs: [
+        "libhwjpeg_headers",
+        "libhardware_headers",
+    ],
+
+    export_header_lib_headers: ["libhwjpeg_headers"],
+    export_shared_lib_headers: ["libutils",],
+
+    // compile_multilib: "32",
+}

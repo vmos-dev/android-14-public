@@ -1,0 +1,107 @@
+cc_prebuilt_library {
+    name: "librvcam",
+    proprietary: true,
+    vendor: true,
+    compile_multilib: "both",
+    multilib: {
+        lib64: {
+            srcs: ["vendor/lib64/librvcam.so"],
+        },
+        lib32: {
+            srcs: ["vendor/lib/librvcam.so"],
+        },
+    },
+    shared_libs: [
+        "liblog",
+        "libutils",
+        "libcutils",
+        "libui",
+        "libdrm",
+        "librga",
+    ],
+    strip: {
+        none: true,
+    },
+    check_elf_files: false,
+}
+
+cc_prebuilt_library {
+    name: "vendor.rockchip.automotive.camera.rvcam@1.0",
+    proprietary: true,
+    vendor: true,
+    compile_multilib: "both",
+    multilib: {
+        lib64: {
+            srcs: ["vendor/lib64/vendor.rockchip.automotive.camera.rvcam@1.0.so"],
+        },
+        lib32: {
+            srcs: ["vendor/lib/vendor.rockchip.automotive.camera.rvcam@1.0.so"],
+        },
+    },
+    shared_libs: [
+        "liblog",
+        "libutils",
+        "libcutils",
+        "libhidlbase",
+    ],
+    strip: {
+        none: true,
+    },
+    check_elf_files: false,
+}
+
+cc_prebuilt_library {
+    name: "librvcam_client@1.0",
+    proprietary: true,
+    vendor: true,
+    compile_multilib: "both",
+    multilib: {
+        lib64: {
+            srcs: ["vendor/lib64/librvcam_client@1.0.so"],
+        },
+        lib32: {
+            srcs: ["vendor/lib/librvcam_client@1.0.so"],
+        },
+    },
+    shared_libs: [
+        "vendor.rockchip.automotive.camera.rvcam@1.0",
+        "libbase",
+        "libcutils",
+        "libhidlbase",
+        "liblog",
+        "libutils",
+        "libbinder",
+        "librvcam",
+    ],
+    strip: {
+        none: true,
+    },
+    check_elf_files: false,
+}
+
+cc_prebuilt_binary {
+    name:"vendor.rockchip.automotive.camera.rvcam@1.0-service",
+    soc_specific: true,
+    vendor: true,
+    relative_install_path: "hw",
+    compile_multilib: "32",
+    shared_libs: [
+        "vendor.rockchip.automotive.camera.rvcam@1.0",
+        "libbinder",
+        "libhidlbase",
+        "liblog",
+        "libutils",
+        "libcutils",
+        "libui",
+        "libdrm",
+        "librga",
+        "librvcam",
+    ],
+    srcs: ["vendor/bin/hw/vendor.rockchip.automotive.camera.rvcam@1.0-service"],
+    vintf_fragments: ["vendor/etc/vintf/manifest/vendor.rockchip.automotive.camera.rvcam@1.0-service.xml"],
+    init_rc: ["vendor/etc/init/vendor.rockchip.automotive.camera.rvcam@1.0-service.rc"],
+    strip: {
+        none: true,
+    },
+    check_elf_files: false,
+}

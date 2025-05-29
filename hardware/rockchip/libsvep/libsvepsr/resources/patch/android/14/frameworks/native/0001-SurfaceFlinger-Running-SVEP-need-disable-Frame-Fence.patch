@@ -1,0 +1,76 @@
+From 689588c5764ef64331ca3f38fe1b4ed42224b2f7 Mon Sep 17 00:00:00 2001
+From: libin <bin.li@rock-chips.com>
+Date: Wed, 31 Jan 2024 16:27:06 +0800
+Subject: [PATCH] SurfaceFlinger : Running SVEP need disable Frame Fenceding.
+
+Signed-off-by: libin <bin.li@rock-chips.com>
+Change-Id: Idee33716b7046ca611cba0994fd45daaed56acea
+---
+ .../include/scheduler/FrameTargeter.h         |  4 ++++
+ .../Scheduler/src/FrameTargeter.cpp           | 21 ++++++++++++++++++-
+ 2 files changed, 24 insertions(+), 1 deletion(-)
+
+diff --git a/services/surfaceflinger/Scheduler/include/scheduler/FrameTargeter.h b/services/surfaceflinger/Scheduler/include/scheduler/FrameTargeter.h
+index ae74205720..8f35afd69a 100644
+--- a/services/surfaceflinger/Scheduler/include/scheduler/FrameTargeter.h
++++ b/services/surfaceflinger/Scheduler/include/scheduler/FrameTargeter.h
+@@ -88,6 +88,10 @@ protected:
+     TracedOrdinal<bool> mHwcFrameMissed;
+     TracedOrdinal<bool> mGpuFrameMissed;
+ 
++    //-------rk-code----- 
++    // RK SVEP 由于单帧耗时时间大于 1 Vsync时间，故打开SVEP后，需要关闭FencePending逻辑
++    bool mDisableFramePending = false;
++    //----------- 
+     struct FenceWithFenceTime {
+         sp<Fence> fence = Fence::NO_FENCE;
+         FenceTimePtr fenceTime = FenceTime::NO_FENCE;
+diff --git a/services/surfaceflinger/Scheduler/src/FrameTargeter.cpp b/services/surfaceflinger/Scheduler/src/FrameTargeter.cpp
+index 7a18654346..91f043dfd3 100644
+--- a/services/surfaceflinger/Scheduler/src/FrameTargeter.cpp
++++ b/services/surfaceflinger/Scheduler/src/FrameTargeter.cpp
+@@ -18,6 +18,7 @@
+ 
+ #include <scheduler/FrameTargeter.h>
+ #include <scheduler/IVsyncSource.h>
++#include <cutils/properties.h>
+ 
+ namespace android::scheduler {
+ 
+@@ -25,7 +26,14 @@ FrameTarget::FrameTarget(const std::string& displayLabel)
+       : mFramePending("PrevFramePending " + displayLabel, false),
+         mFrameMissed("PrevFrameMissed " + displayLabel, false),
+         mHwcFrameMissed("PrevHwcFrameMissed " + displayLabel, false),
+-        mGpuFrameMissed("PrevGpuFrameMissed " + displayLabel, false) {}
++        mGpuFrameMissed("PrevGpuFrameMissed " + displayLabel, false) {
++
++    //-------rk-code----- 
++    char value[PROPERTY_VALUE_MAX];
++    property_get("debug.sf.disable_frame_pending_by_svep_running", value, "0");
++    mDisableFramePending = atoi(value) > 0;
++    //------------
++}
+ 
+ TimePoint FrameTarget::pastVsyncTime(Period vsyncPeriod) const {
+     // TODO(b/267315508): Generalize to N VSYNCs.
+@@ -100,6 +108,17 @@ void FrameTargeter::beginFrame(const BeginFrameArgs& args, const IVsyncSource& v
+     mFramePending = pastPresentFence != FenceTime::NO_FENCE &&
+             isFencePending(pastPresentFence, graceTimeForPresentFenceMs);
+ 
++    //-------rk-code----- 
++    // RK SVEP 由于单帧耗时时间大于 1 Vsync时间，故打开SVEP后，需要关闭FencePending逻辑
++    if(mDisableFramePending && mFramePending){
++        char value[PROPERTY_VALUE_MAX];
++        property_get("vendor.hwc.svep_state", value, "0");
++        if(atoi(value) > 0){
++            mFramePending = false;
++        }
++    }
++    //------------ 
++
+     // A frame is missed if the prior frame is still pending. If no longer pending, then we still
+     // count the frame as missed if the predicted present time was further in the past than when the
+     // fence actually fired. Add some slop to correct for drift. This should generally be smaller
+-- 
+2.25.1
+

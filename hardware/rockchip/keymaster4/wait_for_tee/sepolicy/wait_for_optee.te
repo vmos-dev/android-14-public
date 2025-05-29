@@ -1,0 +1,10 @@
+# wait_for_optee service
+type wait_for_optee, domain;
+type wait_for_optee_exec, exec_type, vendor_file_type, file_type;
+
+init_daemon_domain(wait_for_optee)
+
+hal_client_domain(wait_for_optee, hal_keymaster)
+hal_client_domain(wait_for_optee, hal_keymint)
+
+allow wait_for_optee kmsg_device:chr_file w_file_perms;

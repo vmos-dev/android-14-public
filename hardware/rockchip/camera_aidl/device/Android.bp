@@ -1,0 +1,347 @@
+//
+// Copyright (C) 2023 The Android Open Source Project
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+cc_library_shared {
+    name: "camera.device-external-impl-rk",
+    defaults: ["hidl_defaults"],
+    proprietary: true,
+    srcs: [
+        "ExternalCameraDevice.cpp",
+        "ExternalCameraDeviceSession.cpp",
+        "ExternalCameraOfflineSession.cpp",
+        "ExternalCameraUtils.cpp",
+        "convert.cpp",
+        "RgaCropScale.cpp",
+        "osd.cpp"
+    ],
+    cflags: [
+        "-Wno-error",
+        "-DRK_DEVICE",
+        "-DRK_HW_JPEG_DECODER",
+    ],
+    product_variables: {
+        cameraSupportOSD: {
+            cppflags:[
+            "-DOSD_ENABLE",
+            ],
+            cflags:[
+            "-DOSD_ENABLE",
+            ]
+        },
+    },
+    shared_libs: [
+        "android.hardware.camera.common-V1-ndk",
+        "android.hardware.camera.device-V2-ndk",
+        "android.hardware.graphics.allocator-V2-ndk",
+        "android.hardware.graphics.common-V4-ndk",
+        "android.hardware.graphics.mapper@2.0",
+        "android.hardware.graphics.mapper@3.0",
+        "android.hardware.graphics.mapper@4.0",
+        "android.hardware.graphics.allocator@4.0",
+        "android.hidl.allocator@1.0",
+        "android.hidl.memory@1.0",
+        "libbinder_ndk",
+        "libcamera_metadata",
+        "libcutils",
+        "libexif",
+        "libfmq",
+        "libprocessgroup",
+        "libgralloctypes",
+        "libhardware",
+        "libhidlbase",
+        "libhidlmemory",
+        "libjpeg",
+        "liblog",
+        "libsync",
+        "libtinyxml2",
+        "libutils",
+        "libyuv",
+        "libui",
+        "librga",
+        "libhwjpeg",
+        "libmpp",
+        "libpng",
+        "libz",
+        "libiep",
+    ],
+    static_libs: [
+        "android.hardware.camera.common@1.0-helper",
+        "libaidlcommonsupport",
+        "libft2.nodep"
+    ],
+    header_libs: [
+        "media_plugin_headers",
+        "libhardware_headers",
+        "libiep_headers",
+    ],
+    local_include_dirs: [
+        "include",
+    ],
+    include_dirs: [
+        "hardware/rockchip/librga",
+        "hardware/rockchip/libhwjpeg/inc",
+        "hardware/rockchip/libhwjpeg/inc/mpp_inc",
+        "hardware/rockchip/libiep/include",
+        "external/libdrm/include/drm",
+    ],
+    export_include_dirs: [
+        ".",
+        "include",
+    ],
+}
+
+cc_library_shared {
+    name: "camera.device-internal-impl-rk",
+    defaults: ["hidl_defaults"],
+    proprietary: true,
+    srcs: [
+        "AFStateMachine.cpp",
+        "CachedStreamBuffer.cpp",
+        "CameraDevice.cpp",
+        "CameraDeviceSession.cpp",
+        "StreamBufferCache.cpp",
+        "HwCamera.cpp",
+        "RkCamera.cpp",
+        "metadata_utils.cpp",
+        "utils.cpp",
+    ],
+    cflags: [
+        "-Wno-error",
+        "-DRK_DEVICE",
+        "-DRK_HW_JPEG_DECODER",
+    ],
+    shared_libs: [
+        "android.hardware.camera.common-V1-ndk",
+        "android.hardware.camera.device-V2-ndk",
+        "android.hardware.graphics.allocator-V2-ndk",
+        "android.hardware.graphics.common-V4-ndk",
+        "android.hardware.graphics.mapper@2.0",
+        "android.hardware.graphics.mapper@3.0",
+        "android.hardware.graphics.mapper@4.0",
+        "android.hardware.graphics.allocator@4.0",
+        "android.hidl.allocator@1.0",
+        "android.hidl.memory@1.0",
+        "libbase",
+        "libbinder_ndk",
+        "libcamera_metadata",
+        "libcutils",
+        "libexif",
+        "libEGL",
+        "libGLESv2",
+        "libfmq",
+        "libgralloctypes",
+        "libhardware",
+        "libhidlbase",
+        "libhidlmemory",
+        "libjpeg",
+        "liblog",
+        "libprocessgroup",
+        "libsync",
+        "libtinyxml2",
+        "libutils",
+        "libyuv",
+        "libui",
+        "librga",
+        "libhwjpeg",
+        "libmpp",
+    ],
+    static_libs: [
+        "android.hardware.common-V2-ndk",
+        "android.hardware.common.fmq-V1-ndk",
+        "android.hardware.camera.common-V1-ndk",
+        "android.hardware.camera.device-V2-ndk",
+        "android.hardware.camera.provider-V2-ndk",
+        "android.hardware.camera.common@1.0-helper",
+        "libaidlcommonsupport",
+        "libyuv_static",
+    ],
+    header_libs: [
+        "media_plugin_headers",
+        "libhardware_headers",
+    ],
+    local_include_dirs: [
+        "include",
+    ],
+    include_dirs: [
+        "hardware/rockchip/librga",
+        "hardware/rockchip/libhwjpeg/inc",
+        "hardware/rockchip/libhwjpeg/inc/mpp_inc",
+        "hardware/rockchip/libiep/include",
+        "external/libdrm/include/drm",
+    ],
+    export_include_dirs: [
+        ".",
+        "include",
+    ],
+}
+
+cc_library_shared {
+    name: "camera.device-hdmi-impl-rk",
+    defaults: ["hidl_defaults"],
+    proprietary: true,
+    srcs: [
+        "HdmiDevice.cpp",
+        "HdmiDeviceSession.cpp",
+        "HdmiDeviceOfflineSession.cpp",
+        "HdmiUtils.cpp",
+        "convert.cpp",
+        "RgaCropScale.cpp",
+    ],
+    cflags: [
+        "-Wno-error",
+        "-DRK_DEVICE",
+    ],
+    shared_libs: [
+        "android.hardware.camera.common-V1-ndk",
+        "android.hardware.camera.device-V2-ndk",
+        "android.hardware.graphics.allocator-V2-ndk",
+        "android.hardware.graphics.common-V4-ndk",
+        "android.hardware.graphics.mapper@2.0",
+        "android.hardware.graphics.mapper@3.0",
+        "android.hardware.graphics.mapper@4.0",
+        "android.hardware.graphics.allocator@4.0",
+        "android.hidl.allocator@1.0",
+        "android.hidl.memory@1.0",
+        "libbinder_ndk",
+        "libcamera_metadata",
+        "libcutils",
+        "libexif",
+        "libfmq",
+        "libprocessgroup",
+        "libgralloctypes",
+        "libhardware",
+        "libhidlbase",
+        "libhidlmemory",
+        "libjpeg",
+        "liblog",
+        "libsync",
+        "libtinyxml2",
+        "libutils",
+        "libyuv",
+        "libui",
+        "librga",
+        "libhwjpeg",
+        "libmpp",
+    ],
+    static_libs: [
+        "android.hardware.camera.common@1.0-helper",
+        "libaidlcommonsupport",
+    ],
+    header_libs: [
+        "media_plugin_headers",
+        "libhardware_headers",
+    ],
+    local_include_dirs: [
+        "include",
+    ],
+    include_dirs: [
+        "hardware/rockchip/librga",
+        "hardware/rockchip/libhwjpeg/inc",
+        "hardware/rockchip/libhwjpeg/inc/mpp_inc",
+        "external/libdrm/include/drm",
+    ],
+    export_include_dirs: [
+        ".",
+        "include",
+    ],
+}
+
+
+cc_library_shared {
+    name: "camera.device-virtual-impl-rk",
+    defaults: ["hidl_defaults"],
+    proprietary: true,
+    srcs: [
+        "VirtualDevice.cpp",
+        "VirtualDeviceSession.cpp",
+        "VirtualDeviceOfflineSession.cpp",
+        "VirtualUtils.cpp",
+        "convert.cpp",
+        "RgaCropScale.cpp",
+        "osd.cpp"
+    ],
+    cflags: [
+        "-Wno-error",
+        "-DRK_DEVICE",
+    ],
+    product_variables: {
+        cameraSupportOSD: {
+            cppflags:[
+            "-DOSD_ENABLE",
+            ],
+            cflags:[
+            "-DOSD_ENABLE",
+            ]
+        },
+    },
+    shared_libs: [
+        "android.hardware.camera.common-V1-ndk",
+        "android.hardware.camera.device-V2-ndk",
+        "android.hardware.graphics.allocator-V2-ndk",
+        "android.hardware.graphics.common-V4-ndk",
+        "android.hardware.graphics.mapper@2.0",
+        "android.hardware.graphics.mapper@3.0",
+        "android.hardware.graphics.mapper@4.0",
+        "android.hardware.graphics.allocator@4.0",
+        "android.hidl.allocator@1.0",
+        "android.hidl.memory@1.0",
+        "libbinder_ndk",
+        "libcamera_metadata",
+        "libcutils",
+        "libexif",
+        "libfmq",
+        "libprocessgroup",
+        "libgralloctypes",
+        "libhardware",
+        "libhidlbase",
+        "libhidlmemory",
+        "libjpeg",
+        "liblog",
+        "libsync",
+        "libtinyxml2",
+        "libutils",
+        "libyuv",
+        "libui",
+        "librga",
+        "libhwjpeg",
+        "libmpp",
+        "libpng",
+        "libz",
+        "rockchip.hardware.hdmi@1.0",
+    ],
+    static_libs: [
+        "android.hardware.camera.common@1.0-helper",
+        "libaidlcommonsupport",
+        "libft2.nodep"
+    ],
+    header_libs: [
+        "media_plugin_headers",
+        "libhardware_headers",
+    ],
+    local_include_dirs: [
+        "include",
+    ],
+    include_dirs: [
+        "hardware/rockchip/librga",
+        "hardware/rockchip/libhwjpeg/inc",
+        "hardware/rockchip/libhwjpeg/inc/mpp_inc",
+        "external/libdrm/include/drm",
+    ],
+    export_include_dirs: [
+        ".",
+        "include",
+    ],
+}

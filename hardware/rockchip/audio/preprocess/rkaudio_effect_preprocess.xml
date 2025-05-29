@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<preprocess>
+    <aec>
+        <pos>1</pos>
+        <drop_ref_channel>0</drop_ref_channel>
+        <model_aec_en>0</model_aec_en>
+        <delay_len>0</delay_len>
+        <look_ahead>0</look_ahead>
+        <filter_len>2</filter_len>
+        <Array_list>0,1,2,3</Array_list>
+
+        <delay>
+            <max_frame>32</max_frame>
+            <least_delay>0</least_delay>
+            <jump_frame>12</jump_frame>
+            <delay_offset>1</delay_offset>
+            <mic_amp_thr>50</mic_amp_thr>
+            <ref_amp_thr>50</ref_amp_thr>
+            <start_freq>500</start_freq>
+            <end_freq>4000</end_freq>
+            <smooth_factor>0.97</smooth_factor>
+        </delay>
+    </aec>
+
+    <bf>
+        <ref_pos>1</ref_pos>
+        <targ>0</targ>
+        <!-- num_ref_channel is moved to profile_init() -->
+        <drop_ref_channel>0</drop_ref_channel>
+
+        <fast_aec>
+        </fast_aec>
+
+        <aes>
+            <beta_up>0.002</beta_up>
+            <beta_down>0.001</beta_down>
+            <beta_up_low>0.005</beta_up_low>
+            <beta_down_low>0.001</beta_down_low>
+            <low_freq>1000</low_freq>
+            <high_freq>3750</high_freq>
+            <thd_flag>0</thd_flag>
+            <hard_flag>0</hard_flag>
+            <limit_ratio_0>1.5,1.2,1.2</limit_ratio_0>
+            <limit_ratio_1>1.5,1.2,1.2</limit_ratio_1>
+            <thd_split_freq_0>500,1000</thd_split_freq_0>
+            <thd_split_freq_1>1000,2400</thd_split_freq_1>
+            <thd_split_freq_2>2400,4000</thd_split_freq_2>
+            <thd_split_freq_3>0,0</thd_split_freq_3>
+            <thd_sup_degree_0>0.005,0.005,0,0,0,0,0,0,0,0</thd_sup_degree_0>
+            <thd_sup_degree_1>0.005,0.005,0.005,0,0,0,0,0,0,0</thd_sup_degree_1>
+            <thd_sup_degree_2>0.005,0.005,0.005,0.005,0,0,0,0,0,0</thd_sup_degree_2>
+            <thd_sup_degree_3>0.003,0.003,0.004,0.005,0.003,0.003,0.003,0,0,0</thd_sup_degree_3>
+            <hard_split_freq_0>3800,5500</hard_split_freq_0>
+            <hard_split_freq_1>5500,6200</hard_split_freq_1>
+            <hard_split_freq_2>6200,8000</hard_split_freq_2>
+            <hard_split_freq_3>0,0</hard_split_freq_3>
+            <hard_split_freq_4>300,1800</hard_split_freq_4>
+            <hard_threshold>0.15,0.15,0.25,0.15</hard_threshold>
+        </aes>
+
+        <gsc>
+            <method>0</method>
+        </gsc>
+
+        <agc>
+            <attack_time>200.0</attack_time>
+            <release_time>400.0</release_time>
+            <attenuate_time>1000</attenuate_time>
+            <max_gain>40.0</max_gain>
+            <max_peak>-1.0</max_peak>
+            <fRth0>-80</fRth0>
+            <fRth1>-75</fRth1>
+            <fRth2>-47</fRth2>
+            <fRk0>2.0</fRk0>
+            <fRk1>0.8</fRk1>
+            <fRk2>0.4</fRk2>
+            <fLineGainDb>-25.0</fLineGainDb>
+            <swSmL0>40</swSmL0>
+            <swSmL1>80</swSmL1>
+            <swSmL2>80</swSmL2>
+        </agc>
+
+        <anr>
+            <noiseFactor>0.88</noiseFactor>
+            <swU>20</swU>
+            <psiMin>0.02</psiMin>
+            <psiMax>0.516</psiMax>
+            <fGmin>0.05</fGmin>
+            <supFreq1>-3588</supFreq1>
+            <supFreq2>-3588</supFreq2>
+            <supEnergy1>10000.0</supEnergy1>
+            <supEnergy2>10000.0</supEnergy2>
+            <interV>8</interV>
+            <biasMin>1.67</biasMin>
+            <updateFrm>15</updateFrm>
+            <nPreGammaThr>4.6</nPreGammaThr>
+            <nPreZetaThr>1.67</nPreZetaThr>
+            <sabsGammaThr0>1.0</sabsGammaThr0>
+            <sabsGammaThr1>3.0</sabsGammaThr1>
+            <infSmooth>0.8</infSmooth>
+            <probSmooth>0.7</probSmooth>
+            <compCoeff>1.4</compCoeff>
+            <prioriMin>0.0316</prioriMin>
+            <postMax>40.0</postMax>
+            <prioriRatio>0.95</prioriRatio>
+            <prioriRatioLow>0.95</prioriRatioLow>
+            <splitBand>20</splitBand>
+            <prioriSmooth>0.7</prioriSmooth>
+            <tranMode>0</tranMode>
+        </anr>
+
+        <nlp>
+            <band_pass_thd>10,10,10,5,5,5,0,0</band_pass_thd>
+            <super_est_factor>6,10,10,10,10,10,6,6</super_est_factor>
+        </nlp>
+
+        <dereverb>
+            <rlsLg>4</rlsLg>
+            <curveLg>30</curveLg>
+            <delay>2</delay>
+            <forgetting>0.98</forgetting>
+            <t60>0.3</t60>
+            <coCoeff>1.0</coCoeff>
+        </dereverb>
+
+        <cng>
+            <fGain>10.0</fGain>
+            <fMpy>10.0</fMpy>
+            <fSmoothAlpha>0.99</fSmoothAlpha>
+            <fSpeechGain>0</fSpeechGain>
+        </cng>
+
+        <dtd>
+            <ksiThd_high>0.6</ksiThd_high>
+            <ksiThd_low>0.5</ksiThd_low>
+        </dtd>
+
+        <howl>
+            <mode>1</mode>
+        </howl>
+
+        <doa>
+            <rad>0.04</rad>
+            <start_freq>1000</start_freq>
+            <end_freq>4000</end_freq>
+            <lg_num>40</lg_num>
+            <lg_pitch_num>1</lg_pitch_num>
+        </doa>
+
+        <wind>
+        </wind>
+
+        <eq>
+            <shwParaLen>65</shwParaLen>
+            <filter_bank_0>-1,-1,-1,-1,-2,-1,-1,-1,-1,-1,-1,-2,-3</filter_bank_0>
+            <filter_bank_1>-1,-1,-1,-1,-2,-2,-3,-5,-3,-2,-1,-1,-2</filter_bank_1>
+            <filter_bank_2>-2,-5,-9,-4,-2,-2,-1,-5,-5,-11,-20,-11,-5</filter_bank_2>
+            <filter_bank_3>-5,-1,-7,-7,-19,-40,-20,-9,-10,-1,-20,-24,-60</filter_bank_3>
+            <filter_bank_4>-128,-76,-40,-44,-1,-82,-111,-383,-1161,-1040,-989,-3811,32764</filter_bank_4>
+        </eq>
+    </bf>
+
+    <rx>
+        <anr>
+            <noiseFactor>0.88</noiseFactor>
+            <swU>10</swU>
+            <psiMin>0.02</psiMin>
+            <psiMax>0.516</psiMax>
+            <fGmin>0.05</fGmin>
+            <supFreq1>-3588</supFreq1>
+            <supFreq2>-3588</supFreq2>
+            <supEnergy1>100000</supEnergy1>
+            <supEnergy2>100000</supEnergy2>
+            <interV>8</interV>
+            <biasMin>1.67</biasMin>
+            <updateFrm>15</updateFrm>
+            <nPreGammaThr>4.6</nPreGammaThr>
+            <nPreZetaThr>1.67</nPreZetaThr>
+            <sabsGammaThr0>1.0</sabsGammaThr0>
+            <sabsGammaThr1>3.0</sabsGammaThr1>
+            <infSmooth>0.8</infSmooth>
+            <probSmooth>0.7</probSmooth>
+            <compCoeff>1.4</compCoeff>
+            <prioriMin>0.0316</prioriMin>
+            <postMax>40.0</postMax>
+            <prioriRatio>0.95</prioriRatio>
+            <prioriRatioLow>0.95</prioriRatioLow>
+            <splitBand>20</splitBand>
+            <prioriSmooth>0.7</prioriSmooth>
+            <tranMode>0</tranMode>
+        </anr>
+
+        <howl>
+            <mode>2</mode>
+        </howl>
+    </rx>
+</preprocess>

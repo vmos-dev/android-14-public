@@ -1,0 +1,40 @@
+apex_key {
+    name: "com.rockchip.hardware.sensors.key",
+    public_key: "com.rockchip.hardware.sensors.avbpubkey",
+    private_key: "com.rockchip.hardware.sensors.pem",
+}
+
+android_app_certificate {
+    name: "com.rockchip.hardware.sensors.certificate",
+    certificate: "com.rockchip.hardware.sensors",
+}
+
+genrule {
+    name: "com.rockchip.hardware.sensors.rc-gen",
+    srcs: [":sensors-rockchip.rc"],
+    out: ["com.rockchip.hardware.sensors.rc"],
+    cmd: "sed -E 's/\\/vendor/\\/apex\\/com.rockchip.hardware.sensors/' $(in) > $(out)",
+}
+
+prebuilt_etc {
+    name: "com.rockchip.hardware.sensors.rc",
+    src: ":com.rockchip.hardware.sensors.rc-gen",
+    installable: false,
+}
+
+// Default vendor APEX for android.hardware.sensors.
+// Custom implementations may use override_apex based on this APEX.
+apex {
+    name: "com.rockchip.hardware.sensors",
+    manifest: "apex_manifest.json",
+    key: "com.rockchip.hardware.sensors.key",
+    certificate: ":com.rockchip.hardware.sensors.certificate",
+    file_contexts: "file_contexts",
+    use_vndk_as_stable: true,
+    updatable: false,
+    // Install the apex in /vendor/apex
+    soc_specific: true,
+    binaries: ["android.hardware.sensors-service.rockchip"],
+    prebuilts: ["com.rockchip.hardware.sensors.rc"],
+    vintf_fragments: [":sensors-rockchip.xml"],
+}

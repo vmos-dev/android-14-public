@@ -1,0 +1,68 @@
+VERSION_INFO  "version_1.0_20231124"
+
+======================================================
+keymaster4:
+
+commit 85fd5503ecd4211ab2bea22dba15c7226389445f 
+Author: callen.cai <callen.cai@rock-chips.com>
+Date:   Tue Nov 21 13:56:26 2023 +0800
+
+    support device ID attestation provider.
+    
+    Signed-off-by: callen.cai <callen.cai@rock-chips.com>
+
+======================================================
+v1:
+optee_client:
+
+commit 209bdd29fbc2b148eb086f8a865c7773e9f107c9
+Author: Hisping Lin <hisping.lin@rock-chips.com>
+Date:   Tue Dec 6 15:38:10 2022 +0800
+
+    tee-supplicant: add O_SYNC flag when open security partition
+    
+    set O_SYNC flag for avoid data being stored in cache and
+    not actually written to flash.
+    
+    Signed-off-by: Hisping Lin <hisping.lin@rock-chips.com>
+    Change-Id: I8a8ff011b3a9dcc4542e31c8ace71368cc76bb23
+
+---------------------------------------------------
+optee_test:
+
+commit f1e9951526e87f1af69533e2fa2df58993823be7
+Author: callen.cai <callen.cai@rock-chips.com>
+Date:   Wed Dec 6 09:17:13 2023 +0800
+
+    rk_keymaster : support attestation keybox check function.
+    
+    We write/read attestation keybox by uboot ta,so remove some useless
+    parse function.
+    
+    Change-Id: I13e5722745f7fd98cd2cd7f65a16e4af7c3ccfa0
+    Signed-off-by: callen.cai <callen.cai@rock-chips.com>
+
+======================================================
+v2
+optee_test:
+
+commit eea24f407a1fbe6ef35b0310f3a55f062a5f408c
+Author: callen.cai <callen.cai@rock-chips.com>
+Date:   Mon Dec 4 15:23:50 2023 +0800
+
+    rk_weaver : build without type suffix.
+    
+    Signed-off-by: callen.cai <callen.cai@rock-chips.com>
+    Change-Id: I88f09e0d39f2d99e46460468a78d8ae0cedc4c0d
+
+---------------------------------------------------
+optee_client:
+
+commit 2592064168a71b0229da06c3dd306703d1e6eb87
+Author: Hisping Lin <hisping.lin@rock-chips.com>
+Date:   Wed May 17 16:30:47 2023 +0800
+
+    build.sh: support uclibc toolchain for rv1106
+    
+    Signed-off-by: Hisping Lin <hisping.lin@rock-chips.com>
+    Change-Id: Ib5545d7d6e92aed48c95b1d8f9f171b40a3a96d5

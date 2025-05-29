@@ -1,0 +1,1 @@
+/vendor/bin/hw/wait_for_optee       u:object_r:wait_for_optee_exec:s0

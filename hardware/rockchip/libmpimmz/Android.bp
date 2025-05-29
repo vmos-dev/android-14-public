@@ -1,0 +1,52 @@
+bootstrap_go_package {
+    name: "soong-libmpimmz",
+    pkgPath: "android/soong/libmpimmz",
+    deps: [
+        "blueprint",
+        "blueprint-pathtools",
+        "soong",
+        "soong-android",
+        "soong-cc",
+        "soong-genrule",
+    ],
+    srcs: [
+          "Android.go",
+    ],
+    pluginFor: ["soong_build"],
+}
+
+libmpimmz_src = [
+    "src/rk_mpi_mmz.cpp",
+    "src/rk_ion.cpp",
+    "src/rk_dmabuf.cpp",
+]
+
+cc_libmpimmz {
+   name: "cc_libmpimmz_defaults"
+}
+
+cc_library_shared {
+    name: "libmpimmz",
+    defaults: [
+        "cc_libmpimmz_defaults"
+    ],
+
+    srcs: libmpimmz_src,
+    vendor_available: true,
+    local_include_dirs: [
+        "include",
+    ],
+    shared_libs: ["liblog"],
+    cflags: ["-Werror"],
+    min_sdk_version: "22",
+}
+
+cc_binary {
+    name: "mpimmz_test",
+    srcs: ["src/rk_mpi_mmz_test.c"],
+    local_include_dirs: [
+        "include",
+    ],
+    shared_libs: ["libmpimmz", "liblog"],
+    cflags: ["-Werror"],
+}

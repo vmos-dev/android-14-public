@@ -1,0 +1,38 @@
+#
+# (C) COPYRIGHT 2023-2024 Rockchip Electronic Co., Ltd.
+#
+# This program is free software and is provided to you under the terms of the
+# GNU General Public License version 2 as published by the Free Software
+# Foundation, and any use by you of this program is subject to the terms
+# of such GNU licence.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, you can access it online at
+# http://www.gnu.org/licenses/gpl-2.0.html.
+#
+# SPDX-License-Identifier: GPL-2.0-only
+#
+
+ccflags-y += -Wall -Werror $(EXTRA_CCFLAGS)
+ccflags-y += -std=gnu99 -Wno-declaration-after-statement
+ccflags-y += -DPB_SYSTEM_HEADER=\"pb_system.h\" -I$(pwd)/nanopb-c/
+
+obj-m := vehicle-dummy-hw.o
+obj-m += vehicle-core.o
+
+vehicle-core-objs := \
+	nanopb-c/pb_common.o \
+	nanopb-c/pb_decode.o \
+	nanopb-c/pb_encode.o \
+	vehicle_core.o \
+	vehicle_protocol_callback.o \
+	vehiclehalproto.pb.o
+
+vehicle-dummy-hw-objs := \
+    vehicle_dummy_hw.o
+

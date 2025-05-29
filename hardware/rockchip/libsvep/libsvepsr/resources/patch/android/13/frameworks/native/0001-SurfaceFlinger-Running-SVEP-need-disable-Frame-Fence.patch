@@ -1,0 +1,70 @@
+From 06ca188e6c8d9c4767835fb279655a8cb28c0622 Mon Sep 17 00:00:00 2001
+From: libin <bin.li@rock-chips.com>
+Date: Wed, 31 Jan 2024 19:21:33 +0800
+Subject: [PATCH] SurfaceFlinger : Running SVEP need disable Frame Fenceding.
+
+Change-Id: Iefe68452b24e52e97b2862139088a29bb9814c78
+Signed-off-by: libin <bin.li@rock-chips.com>
+---
+ services/surfaceflinger/SurfaceFlinger.cpp | 19 +++++++++++++++++++
+ services/surfaceflinger/SurfaceFlinger.h   |  7 +++++++
+ 2 files changed, 26 insertions(+)
+
+diff --git a/services/surfaceflinger/SurfaceFlinger.cpp b/services/surfaceflinger/SurfaceFlinger.cpp
+index 20e468ea70..a5db611b6c 100644
+--- a/services/surfaceflinger/SurfaceFlinger.cpp
++++ b/services/surfaceflinger/SurfaceFlinger.cpp
+@@ -416,6 +416,13 @@ SurfaceFlinger::SurfaceFlinger(Factory& factory) : SurfaceFlinger(factory, SkipI
+     property_get("debug.sf.disable_client_composition_cache", value, "0");
+     mDisableClientCompositionCache = atoi(value);
+ 
++    //-------rk-code-----
++    // RK Support ：If set, disables frame pending function.
++    // RK SVEP 功能单帧耗时太长，部分场景需要关闭 Frame Pending功能
++    property_get("debug.sf.disable_frame_pending_by_svep_running", value, "0");
++    mDisableFramePending = atoi(value) > 0;
++    //------------
++
+     property_get("debug.sf.predict_hwc_composition_strategy", value, "1");
+     mPredictCompositionStrategy = atoi(value);
+ 
+@@ -1977,6 +1984,18 @@ bool SurfaceFlinger::previousFramePending(int graceTimeMs) {
+     }
+ 
+     const status_t status = fence->wait(graceTimeMs);
++
++    //-------rk-code-----
++    // 如果 SVEP 是 running 状态，则关闭FramePending功能
++    if(mDisableFramePending && status == -ETIME){
++        char value[PROPERTY_VALUE_MAX];
++        property_get("vendor.hwc.svep_state", value, "0");
++        if(atoi(value) > 0){
++            return false;
++        }
++    }
++    //------------
++
+     // This is the same as Fence::Status::Unsignaled, but it saves a getStatus() call,
+     // which calls wait(0) again internally
+     return status == -ETIME;
+diff --git a/services/surfaceflinger/SurfaceFlinger.h b/services/surfaceflinger/SurfaceFlinger.h
+index 77b09b029b..2608830e66 100644
+--- a/services/surfaceflinger/SurfaceFlinger.h
++++ b/services/surfaceflinger/SurfaceFlinger.h
+@@ -337,6 +337,13 @@ public:
+     // If set, disables reusing client composition buffers. This can be set by
+     // debug.sf.disable_client_composition_cache
+     bool mDisableClientCompositionCache = false;
++
++    //-------rk-code-----
++    // RK Support ：If set, disables frame pending function.
++    // RK SVEP 功能单帧耗时太长，部分场景需要关闭Frame Pending功能
++    bool mDisableFramePending = false;
++    //------------
++
+     void windowInfosReported();
+ 
+     // Disables expensive rendering for all displays
+-- 
+2.25.1
+

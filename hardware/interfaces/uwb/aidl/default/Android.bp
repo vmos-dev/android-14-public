@@ -1,0 +1,32 @@
+package {
+    // See: http://go/android-license-faq
+    // A large-scale-change added 'default_applicable_licenses' to import
+    // all of the 'license_kinds' from "hardware_interfaces_license"
+    // to get the below license kinds:
+    //   SPDX-license-identifier-Apache-2.0
+    default_applicable_licenses: ["hardware_interfaces_license"],
+}
+
+rust_binary {
+    name: "android.hardware.uwb-service",
+    crate_name: "uwb_default_hal",
+    relative_install_path: "hw",
+    vintf_fragments: ["uwb-service.xml"],
+    vendor: true,
+    rustlibs: [
+        "android.hardware.uwb-V1-rust",
+        "liblogger",
+        "liblog_rust",
+        "libbinder_rs",
+        "libbinder_tokio_rs",
+        "libtokio",
+        "libnix",
+        "libanyhow",
+    ],
+    proc_macros: [
+        "libasync_trait",
+    ],
+    srcs: [
+        "src/service.rs",
+    ],
+}

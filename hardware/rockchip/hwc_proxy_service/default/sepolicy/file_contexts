@@ -1,0 +1,2 @@
+# 把实际的bin文件和服务绑定到一起
+/vendor/bin/hw/rockchip.hwc.proxy-service u:object_r:vendor-rkhwcproxy-default_exec:s0

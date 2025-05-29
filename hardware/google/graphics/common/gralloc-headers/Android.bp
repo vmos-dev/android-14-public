@@ -1,0 +1,20 @@
+package {
+    default_applicable_licenses: ["Android-Apache-2.0"],
+}
+
+cc_library_headers {
+    name: "pixel-gralloc-headers",
+    // TODO(270442578): Change to vendor: true
+    vendor_available: true,
+    export_include_dirs: [
+        ".",
+    ],
+    shared_libs: [
+        "android.hardware.graphics.common-V4-ndk",
+        "libgralloctypes",
+    ],
+    visibility: [
+        "//visibility:public",
+    ],
+}
+

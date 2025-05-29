@@ -1,0 +1,4 @@
+service vendor.thermal-rockchip /vendor/bin/hw/android.hardware.thermal-service.rockchip
+    class hal
+    user system
+    group system

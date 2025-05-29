@@ -1,0 +1,2 @@
+/(vendor|system/vendor)/bin/hw/android\.hardware\.automotive\.vehicle@V1-(rvcam|default|emulator)-service u:object_r:hal_vehicle_default_exec:s0
+/dev/vehicle  u:object_r:vehicle_device:s0

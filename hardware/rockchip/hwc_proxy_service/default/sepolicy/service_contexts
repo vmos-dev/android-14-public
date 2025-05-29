@@ -1,0 +1,2 @@
+# 由于aidl service是NDK的service类型，所以需要这个文件对服务名称(代码中的instance)进行绑定
+rockchip.hwc.proxy.aidl.IRkHwcProxyAidl/default        u:object_r:hal_rkhwcproxy_service:s0

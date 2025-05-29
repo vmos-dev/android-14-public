@@ -1,0 +1,66 @@
+VERSION_INFO "version_1.0_20231204"
+
+-------------------------------------------------
+weaver:
+commit fc8f11484663c1fbf6b32f699ab4e76dab6a383b (HEAD -> master)
+Author: callen.cai <callen.cai@rock-chips.com>
+Date:   Mon Dec 4 11:48:13 2023 +0800
+
+    update for android 14 build.
+
+=================================================
+
+v1 platform:
+-------------------------------------------------
+optee_test:
+
+commit 0da06154d4c7875ed767c4624e0b09008f39aa4f
+Author: callen.cai <callen.cai@rock-chips.com>
+Date:   Mon Dec 4 16:01:20 2023 +0800
+
+    rk_weaver : build without type suffix.
+    
+    Change-Id: I198d9bae4ee71912a597870f018235babb274dee
+    Signed-off-by: callen.cai <callen.cai@rock-chips.com>
+
+-------------------------------------------------
+optee_client:
+
+commit 209bdd29fbc2b148eb086f8a865c7773e9f107c9
+Author: Hisping Lin <hisping.lin@rock-chips.com>
+Date:   Tue Dec 6 15:38:10 2022 +0800
+
+    tee-supplicant: add O_SYNC flag when open security partition
+    
+    set O_SYNC flag for avoid data being stored in cache and
+    not actually written to flash.
+    
+    Signed-off-by: Hisping Lin <hisping.lin@rock-chips.com>
+    Change-Id: I8a8ff011b3a9dcc4542e31c8ace71368cc76bb23
+
+=================================================
+
+v2 platform:
+-------------------------------------------------
+optee_test:
+
+commit 53cb30c37725ea0b06ce820fe518cb86d5491b0b (HEAD -> develop-next_new)
+Author: callen.cai <callen.cai@rock-chips.com>
+Date:   Mon Dec 4 15:23:50 2023 +0800
+
+    rk_weaver : build without type suffix.
+    
+    Signed-off-by: callen.cai <callen.cai@rock-chips.com>
+
+-------------------------------------------------
+optee_client:
+
+commit 2592064168a71b0229da06c3dd306703d1e6eb87
+Author: Hisping Lin <hisping.lin@rock-chips.com>
+Date:   Wed May 17 16:30:47 2023 +0800
+
+    build.sh: support uclibc toolchain for rv1106
+    
+    Signed-off-by: Hisping Lin <hisping.lin@rock-chips.com>
+    Change-Id: Ib5545d7d6e92aed48c95b1d8f9f171b40a3a96d5
+

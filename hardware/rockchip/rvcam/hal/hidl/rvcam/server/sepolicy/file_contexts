@@ -1,0 +1,8 @@
+###################################
+# Binaries associated with the RVCAM HAL implementation
+#
+/(vendor|system/vendor)/bin/hw/vendor\.rockchip\.automotive\.camera\.rvcam@1\.[0-9]-service  u:object_r:hal_rvcam_default_exec:s0
+/sys/firmware/devicetree/base/model                                                          u:object_r:sysfs_board_model:s0
+
+/data/vendor/camera(/.*)?  u:object_r:hal_rvcam_data_file:s0
+###################################

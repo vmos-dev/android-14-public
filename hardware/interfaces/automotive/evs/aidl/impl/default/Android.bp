@@ -1,0 +1,79 @@
+// Copyright (C) 2022 The Android Open Source Project
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//       http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+package {
+    // See: http://go/android-license-faq
+    // A large-scale-change added 'default_applicable_licenses' to import
+    // all of the 'license_kinds' from "hardware_interfaces_license"
+    // to get the below license kinds:
+    //   SPDX-license-identifier-Apache-2.0
+    default_applicable_licenses: ["hardware_interfaces_license"],
+}
+
+cc_binary {
+    name: "android.hardware.automotive.evs-aidl-default-service",
+    defaults: ["EvsHalDefaults"],
+    vintf_fragments: ["manifest_evs-default-service.xml"],
+    init_rc: ["evs-default-service.rc"],
+    vendor: true,
+    relative_install_path: "hw",
+    cflags: [
+        "-DGL_GLEXT_PROTOTYPES",
+        "-DEGL_EGLEXT_PROTOTYPES",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-Wthread-safety",
+    ],
+    srcs: [
+        ":libgui_frame_event_aidl",
+        "src/*.cpp",
+    ],
+    shared_libs: [
+        "android.hardware.graphics.bufferqueue@1.0",
+        "android.hardware.graphics.bufferqueue@2.0",
+        "android.hidl.token@1.0-utils",
+        "libEGL",
+        "libGLESv2",
+        "libbase",
+        "libbinder_ndk",
+        "libbufferqueueconverter",
+        "libcamera_metadata",
+        "libhardware_legacy",
+        "libhidlbase",
+        "liblog",
+        "libnativewindow",
+        "libtinyxml2",
+        "libui",
+        "libutils",
+        "libyuv",
+    ],
+    static_libs: [
+        "android.frameworks.automotive.display-V1-ndk",
+        "android.hardware.automotive.evs-V2-ndk",
+        "android.hardware.common-V2-ndk",
+        "libaidlcommonsupport",
+        "libcutils",
+    ],
+    local_include_dirs: ["include"],
+    include_dirs: ["frameworks/native/include/"],
+    required: ["evs_mock_hal_configuration.xml"],
+}
+
+prebuilt_etc {
+    name: "evs_mock_hal_configuration.xml",
+    soc_specific: true,
+    src: "resources/evs_mock_configuration.xml",
+    sub_dir: "automotive/evs",
+}

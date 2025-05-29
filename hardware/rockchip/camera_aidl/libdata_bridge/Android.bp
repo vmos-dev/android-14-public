@@ -1,0 +1,44 @@
+cc_library_shared {
+    name: "libdata_bridge",
+    srcs: ["data_bridge.cpp"],
+    header_libs: [
+        "jni_headers",
+    ],
+    include_dirs: [
+        "hardware/rockchip/librga",
+    ],
+    shared_libs: [
+        "libbase",
+        "libandroid",
+        "liblog",
+        "libutils",
+        "libcutils",
+        "libnativehelper",
+        "libhidlbase",
+        "libui",
+        "librga",
+        "rockchip.hardware.hdmi@1.0",
+    ],
+    cflags: [
+        "-Wall",
+        "-Wno-error",
+        "-Wextra",
+        "-Wno-unused-parameter",
+    ],
+    sanitize: {
+        scs: true,
+    },
+}
+
+ndk_library {
+    name: "libdata_bridge",
+    symbol_file: "libdata_bridge.map.txt",
+    first_version: "30",
+}
+prebuilt_etc {
+    name: "public.libraries.libdata_bridge.txt",
+    src: "public.libraries.txt",
+    filename: "public.libraries.txt",
+    installable: false,
+}
+

@@ -1,0 +1,2 @@
+# 由于aidl service是NDK的service类型，需要这个文件的定义
+type hal_rkhwcproxy_service, protected_service, hal_service_type, service_manager_type;

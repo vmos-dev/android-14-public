@@ -1,0 +1,6 @@
+LIBDATA_BRIDGE {
+  global:
+    init;
+  local:
+    *;
+};

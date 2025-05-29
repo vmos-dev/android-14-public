@@ -1,0 +1,2 @@
+type sysfs_board_model, fs_type, sysfs_type;
+type hal_rvcam_data_file, file_type, data_file_type;

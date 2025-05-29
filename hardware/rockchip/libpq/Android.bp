@@ -1,0 +1,26 @@
+bootstrap_go_package {
+    name: "soong-libpq",
+    pkgPath: "android/soong/libpq",
+    deps: [
+        "blueprint",
+        "blueprint-pathtools",
+        "soong",
+        "soong-android",
+        "soong-cc",
+        "soong-genrule",
+    ],
+    srcs: [
+          "src.go",
+    ],
+    pluginFor: ["soong_build"],
+}
+
+cc_libpq_prebuilt_library {
+    name: "libpq",
+    compile_multilib: "both",
+    strip: {
+        none: true,
+    },
+    check_elf_files: false,
+    vendor: true,
+}

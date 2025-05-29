@@ -1,0 +1,22 @@
+<!--
+--
+-- Copyright (C) 2019-2023 Rockchip Electronics Co., Ltd. All Rights Reserved.
+--
+-- This source code is protected under international copyright law.  All rights
+-- reserved and protected by the copyright holders.
+-- This file is confidential and only available to authorized individuals with the
+-- permission of the copyright holders.  If you encounter this file and do not have
+-- permission, please contact the copyright holders and delete this file.
+--
+  -->
+<manifest version="1.0" type="device">
+	<hal format="hidl">
+		<name>vendor.rockchip.automotive.camera.rvcam</name>
+		<transport>hwbinder</transport>
+		<version>1.0</version>
+		<interface>
+			<name>ICamera</name>
+			<instance>default</instance>
+		</interface>
+	</hal>
+</manifest>

@@ -1,0 +1,77 @@
+// Copyright (C) 2014 The Android Open Source Project
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+bootstrap_go_package {
+    name: "soong-hw_output",
+    pkgPath: "android/soong/hw_output",
+    deps: [
+    "blueprint",
+    "blueprint-pathtools",
+    "soong",
+    "soong-android",
+    "soong-cc",
+    "soong-genrule",
+    ],
+    srcs: [
+        "Android.go",
+    ],
+    pluginFor: ["soong_build"],
+}
+
+cc_hw_output {
+   name: "cc_hw_output_defaults"
+}
+
+cc_library_shared {
+    name: "hw_output.default",
+    defaults: [
+        "cc_hw_output_defaults"
+    ],
+    relative_install_path: "hw",
+    proprietary: true,
+    header_libs: ["libhardware_headers"],
+    shared_libs: [
+        "libcutils",
+        "liblog",
+        "libdrm",
+        "libbaseparameter",
+    ],
+    srcs: [
+        "rkdisplay/drmconnector.cpp",
+        "rkdisplay/drmcrtc.cpp",
+        "rkdisplay/drmencoder.cpp",
+        "rkdisplay/drmmode.cpp",
+        "rkdisplay/drmproperty.cpp",
+        "rkdisplay/drmresources.cpp",
+        "rkdisplay/drmgamma.cpp",
+        "rkdisplay/drmhdcp.cpp",
+        "rockchip/baseparameterv2.cpp",
+        "rockchip/baseparameter.cpp",
+        "rockchip/autopq.cpp",
+        "j2s/cJSON.c",
+        "j2s/j2s.c",
+        "j2s/j2s_utils.c",
+        "hw_output.cpp",
+    ],
+    include_dirs: [
+      "hardware/rockchip/libbaseparameter",
+    ],
+    cflags: [
+        "-Wall",
+        "-Werror",
+        "-Wno-pointer-arith",
+        "-Wno-unused-variable",
+        "-Wno-unused-parameter",
+        "-Wno-writable-strings",
+    ],
+}

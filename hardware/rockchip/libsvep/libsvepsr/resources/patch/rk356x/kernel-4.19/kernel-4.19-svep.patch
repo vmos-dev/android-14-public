@@ -1,0 +1,21 @@
+diff --git a/arch/arm64/configs/rockchip_linux_defconfig b/arch/arm64/configs/rockchip_linux_defconfig
+index db78bfae7e11..6884b1414cef 100644
+--- a/arch/arm64/configs/rockchip_linux_defconfig
++++ b/arch/arm64/configs/rockchip_linux_defconfig
+@@ -131,6 +131,7 @@ CONFIG_BLK_DEV_SD=y
+ CONFIG_BLK_DEV_SR=y
+ CONFIG_SCSI_SCAN_ASYNC=y
+ CONFIG_SCSI_SPI_ATTRS=y
++CONFIG_SW_SYNC=y
+ CONFIG_ATA=y
+ CONFIG_SATA_AHCI=y
+ CONFIG_SATA_AHCI_PLATFORM=y
+@@ -354,7 +355,7 @@ CONFIG_BACKLIGHT_LCD_SUPPORT=y
+ # CONFIG_LCD_CLASS_DEVICE is not set
+ CONFIG_BACKLIGHT_CLASS_DEVICE=y
+ CONFIG_BACKLIGHT_PWM=y
+-CONFIG_ROCKCHIP_RGA2=y
++CONFIG_ROCKCHIP_MULTI_RGA=y
+ CONFIG_ROCKCHIP_MPP_SERVICE=y
+ CONFIG_ROCKCHIP_MPP_RKVDEC=y
+ CONFIG_ROCKCHIP_MPP_RKVDEC2=y

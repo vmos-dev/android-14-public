@@ -1,0 +1,9 @@
+service evs_rvcam_driver /vendor/bin/hw/android.hardware.automotive.evs-rvcam
+    class early_hal
+    priority -20
+    user graphics
+    group automotive_evs camera
+    onrestart restart cardisplayproxyd
+    onrestart restart evsmanagerd
+    disabled
+

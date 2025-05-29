@@ -1,0 +1,7 @@
+binder_call(hal_evs_default, hal_rvcam_default)
+binder_call(hal_rvcam_default, hal_evs_default)
+
+allow hal_evs_default graphics_config_writable_prop:file { read open getattr map };
+
+allow hal_evs_default system_data_file:dir { search };
+allow hal_evs_default system_prop:file { getattr map };

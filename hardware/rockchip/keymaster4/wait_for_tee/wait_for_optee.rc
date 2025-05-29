@@ -1,0 +1,7 @@
+# Wait for Optee to be up
+service wait_for_optee /vendor/bin/hw/wait_for_optee
+    user root
+    group root system
+    priority -20
+    ioprio rt 0
+    disabled

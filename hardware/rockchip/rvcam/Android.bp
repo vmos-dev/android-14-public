@@ -1,0 +1,161 @@
+soong_config_module_type {
+    name: "rvcam_cc_defaults",
+    module_type: "cc_defaults",
+    config_namespace: "rvcam",
+    variables: ["soc", "board", "autcam_hal_version", "evs_hal_version", "vhal_hal_version"],
+    bool_variables: ["has_evs", "has_hal3"],
+    properties: ["cflags", "srcs", "enabled"],
+}
+
+soong_config_string_variable {
+    name: "soc",
+    values: ["rk3588", "rk3568"],
+}
+
+soong_config_string_variable {
+    name: "board",
+    values: ["evb_v10", "evb_v20", "evb_v21", "evb_v22"],
+}
+
+soong_config_string_variable {
+    name: "autcam_hal_version",
+    values: ["aidl_V1", "hidl_2_4"],
+}
+
+soong_config_string_variable {
+    name: "evs_hal_version",
+    values: ["aidl_V1", "hidl_1_1"],
+}
+
+soong_config_string_variable {
+    name: "vhal_hal_version",
+    values: ["hidl_2_0", "aidl_V1"],
+}
+
+rvcam_cc_defaults {
+    name: "rvcam_defaults",
+    cflags: [""],
+    soong_config_variables: {
+        soc: {
+            rk3588: {
+                cflags: ["-DRK3588"],
+            },
+            rk3568: {
+                cflags: ["-DRK3568"],
+            },
+            conditions_default: {
+                cflags: ["-DRK3588"],
+            },
+        },
+        board: {
+            evb_v20: {
+                cflags: ["-DBOARD_EVB_V20"],
+            },
+            evb_v21: {
+                cflags: ["-DBOARD_EVB_V21"],
+            },
+            evb_v22: {
+                cflags: ["-DBOARD_EVB_V22"],
+            },
+            conditions_default: {
+                cflags: ["-DBOARD_EVB_V22"],
+            },
+        },
+        has_evs: {
+            cflags: ["-DHAS_EVS=1"],
+            conditions_default: {
+                cflags: ["-DHAS_EVS=0"],
+            },
+        },
+        has_hal3: {
+            cflags: ["-DHAS_HAL3=1"],
+            conditions_default: {
+                cflags: ["-DHAS_HAL3=0"],
+            },
+        },
+    },
+}
+
+rvcam_cc_defaults {
+    name: "rvcam_autcam_hidl_defaults",
+    soong_config_variables: {
+        autcam_hal_version: {
+            aidl_V1: {
+                enabled: false,
+            },
+            hidl_2_4: {
+                enabled: true,
+            },
+        },
+    },
+}
+
+rvcam_cc_defaults {
+    name: "rvcam_autcam_aidl_defaults",
+    soong_config_variables: {
+        autcam_hal_version: {
+            aidl_V1: {
+                enabled: true,
+            },
+            hidl_2_4: {
+                enabled: false,
+            },
+        },
+    },
+}
+
+rvcam_cc_defaults {
+    name: "rvcam_evs_hidl_defaults",
+    soong_config_variables: {
+        evs_hal_version: {
+            aidl_V1: {
+                enabled: false,
+            },
+            hidl_1_1: {
+                enabled: true,
+            },
+        },
+    },
+}
+
+rvcam_cc_defaults {
+    name: "rvcam_evs_aidl_defaults",
+    soong_config_variables: {
+        evs_hal_version: {
+            aidl_V1: {
+                enabled: true,
+            },
+            hidl_1_1: {
+                enabled: false,
+            },
+        },
+    },
+}
+
+rvcam_cc_defaults {
+    name: "rvcam_vhal_hidl_defaults",
+    soong_config_variables: {
+        vhal_hal_version: {
+            aidl_V1: {
+                enabled: false,
+            },
+            hidl_2_0: {
+                enabled: true,
+            },
+        },
+    },
+}
+
+rvcam_cc_defaults {
+    name: "rvcam_vhal_aidl_defaults",
+    soong_config_variables: {
+        vhal_hal_version: {
+            aidl_V1: {
+                enabled: true,
+            },
+            hidl_2_0: {
+                enabled: false,
+            },
+        },
+    },
+}

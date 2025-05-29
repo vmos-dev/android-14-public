@@ -1,0 +1,25 @@
+//
+// Copyright (c) 2020 Rockchip Electronics Co., Ltd
+//
+cc_binary {
+    name: "android.hardware.power-service.rockchip",
+    relative_install_path: "hw",
+    init_rc: ["power-aidl-rockchip.rc"],
+    vintf_fragments: ["power-aidl-rockchip.xml"],
+    vendor: true,
+    shared_libs: [
+        "libbase",
+        "libcutils",
+        "liblog",
+        "libbinder_ndk",
+        "android.hardware.power-V4-ndk",
+    ],
+    srcs: [
+        "main.cpp",
+        "Power.cpp",
+        "PowerHintSession.cpp",
+    ],
+    cflags: [
+        "-Wno-error",
+    ],
+}

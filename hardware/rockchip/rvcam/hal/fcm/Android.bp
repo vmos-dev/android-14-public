@@ -1,0 +1,22 @@
+bootstrap_go_package {
+    name: "soong-rvcamvintf",
+    pkgPath: "android/soong/rvcamvintf",
+    deps: [
+        "blueprint",
+        "blueprint-pathtools",
+        "soong",
+        "soong-android",
+        "soong-genrule",
+        "vintf-compatibility-matrix-soong-rules",
+    ],
+    srcs: [
+          "rvcam_vintf_compatibility_matrix.go",
+    ],
+    pluginFor: ["soong_build"],
+}
+
+rvcam_vintf_compatibility_matrix {
+    name: "rvcam_compatibility_matrix.xml",
+    stem: "compatibility_matrix.xml",
+    system_ext_specific: true,
+}

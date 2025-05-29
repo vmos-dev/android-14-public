@@ -1,0 +1,81 @@
+bootstrap_go_package {
+    name: "soong-init",
+    pkgPath: "android/soong/init",
+    deps: [
+        "blueprint",
+        "blueprint-pathtools",
+        "soong",
+        "soong-android",
+        "soong-cc",
+        "soong-genrule",
+    ],
+    srcs: [
+        "Android.go",
+    ],
+    pluginFor: ["soong_build"],
+}
+hdmicec{
+    name: "hdmi_cec_type"
+}
+
+cc_defaults {
+    name: "hdmi_cec_defaults",
+    cppflags: [
+        "-Wno-error",
+        "-fpermissive",
+        "-Wno-unused-parameter",
+    ],
+}
+
+cc_library_shared {
+    name: "hdmi_cec.rk30board",
+    defaults: [
+        "hdmi_cec_defaults",
+    ],
+    vendor: true,
+    relative_install_path: "hw",
+
+    header_libs: [
+        "libhardware_headers",
+        "libsystem_headers",
+    ],
+    shared_libs: [
+        "libbase",
+        "libcutils",
+        "liblog",
+        "libsync",
+        "libutils",
+        "libhardware_legacy",
+    ],
+    srcs: [
+        "hdmi_cec.cpp",
+        "hdmicec_event.cpp",
+    ],
+}
+
+cc_library_shared {
+    name: "hdmi_connection.rk30board",
+    defaults: [
+        "hdmi_cec_defaults",
+        "hdmi_cec_type",
+    ],
+    vendor: true,
+    relative_install_path: "hw",
+
+    header_libs: [
+        "libhardware_headers",
+        "libsystem_headers",
+    ],
+    shared_libs: [
+        "libbase",
+        "libcutils",
+        "liblog",
+        "libsync",
+        "libutils",
+        "libhardware_legacy",
+    ],
+    srcs: [
+        "hdmi_connection.cpp",
+        "hdmi_connection_event.cpp",
+    ],
+}

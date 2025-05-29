@@ -1,0 +1,33 @@
+cc_library_headers {
+    name: "libiep_headers",
+    vendor: true,
+    export_include_dirs: [
+        "include",
+    ],
+}
+
+cc_prebuilt_library {
+    name: "libiep",
+    compile_multilib: "both",
+    multilib: {
+        lib64: {
+            srcs: ["lib/arm64/libiep.so"],
+        },
+        lib32: {
+            srcs: ["lib/arm/libiep.so"],
+        },
+    },
+
+    strip: {
+        none: true,
+    },
+
+    header_libs: [
+        "libiep_headers",
+    ],
+
+    export_header_lib_headers: ["libiep_headers"],
+
+    check_elf_files: false,
+    vendor: true,
+}

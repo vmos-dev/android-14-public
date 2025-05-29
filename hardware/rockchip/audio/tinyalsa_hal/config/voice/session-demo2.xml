@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- Copyright (c) 2023, Rockchip Electronics Co. Ltd. All rights reserved. -->
+<!--                                                                        -->
+<!-- Redistribution and use in source and binary forms, with or without     -->
+<!-- modification, are permitted provided that the following conditions are -->
+<!-- met:                                                                   -->
+<!--     * Redistributions of source code must retain the above copyright   -->
+<!--       notice, this list of conditions and the following disclaimer.    -->
+<!--     * Redistributions in binary form must reproduce the above          -->
+<!--       copyright notice, this list of conditions and the following      -->
+<!--       disclaimer in the documentation and/or other materials provided  -->
+<!--       with the distribution.                                           -->
+<!--     * Neither the name of The Linux Foundation nor the names of its    -->
+<!--       contributors may be used to endorse or promote products derived  -->
+<!--       from this software without specific prior written permission.    -->
+<!--                                                                        -->
+<!-- THIS SOFTWARE IS PROVIDED "AS IS" AND ANY EXPRESS OR IMPLIED           -->
+<!-- WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF   -->
+<!-- MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT -->
+<!-- ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS -->
+<!-- BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR -->
+<!-- CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF   -->
+<!-- SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR        -->
+<!-- BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,  -->
+<!-- OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN -->
+<!-- IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.                          -->
+
+<!-- FE              BE                                                     -->
+<!--         ****    +-+                                                    -->
+<!-- CPU1 -  *  * -  | | - RK809(Codec1) - Speaker/Mic                      -->
+<!--         *  *    | |                |- Headphone/Headset                -->
+<!-- CPU2 -  *  * -  | | - LTE modem(Codec2)                                -->
+<!-- CPU3 -  *  * -  | | - BT(Codec3)                                       -->
+<!--         ****    +-+                                                    -->
+<!--                                                                        -->
+<!-- This diagram shows a simple audio subsystem. It supports Bluetooth,    -->
+<!-- Speakers, Headset Jack, digital microphones and cellular modem.        -->
+<!--                                                                        -->
+<!-- The LTE modem (card2 pcm0), the RK809 (card1 pcm0) and the BT (card0   -->
+<!-- pcm0) are connected to SoC via digital interfaces, and are configured  -->
+<!-- as FE-BE dai link.                                                     -->
+<session>
+    <devices>
+        <device name="bt" snd_card="0" snd_pcm="0" type="VOICE_DAILINK_FE_BE"
+                quirks="VOICE_DEVICE_CHANNEL_MONO_RIGHT"/>
+        <device name="rk809" snd_card="1" snd_pcm="0" type="VOICE_DAILINK_FE_BE"
+                quirks="VOICE_DEVICE_ROUTE_STATIC_UPDATE"/>
+        <device name="modem" snd_card="2" snd_pcm="0" type="VOICE_DAILINK_FE_BE"/>
+    </devices>
+
+    <streams>
+        <stream sink="modem" source="bt" route="AUDIO_DEVICE_OUT_ALL_SCO"/>
+        <stream sink="bt" source="modem" route="AUDIO_DEVICE_OUT_ALL_SCO"/>
+        <stream sink="rk809" source="modem" route="AUDIO_DEVICE_OUT_WIRED_HEADSET"/>
+        <stream sink="modem" source="rk809" route="AUDIO_DEVICE_OUT_WIRED_HEADSET"/>
+        <stream sink="rk809" source="modem" route="AUDIO_DEVICE_OUT_WIRED_HEADPHONE"/>
+        <stream sink="modem" source="rk809" route="AUDIO_DEVICE_OUT_WIRED_HEADPHONE"/>
+        <stream sink="rk809" source="modem" route="AUDIO_DEVICE_OUT_SPEAKER"/>
+        <stream sink="modem" source="rk809" route="AUDIO_DEVICE_OUT_SPEAKER"/>
+    </streams>
+</session>

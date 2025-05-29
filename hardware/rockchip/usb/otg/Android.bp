@@ -1,0 +1,33 @@
+cc_prebuilt_binary {
+    name: "android.hardware.usb-service.rockchip_otg",
+    relative_install_path: "hw",
+    init_rc: ["android.hardware.usb-service.rockchip_otg.rc"],
+    vintf_fragments: [
+        "android.hardware.usb-service.rockchip_otg.xml",
+    ],
+    vendor: true,
+    compile_multilib: "first",
+    overrides: [
+        "android.hardware.usb-service.rockchip",
+    ],
+    shared_libs: [
+        "libbase",
+        "libbinder",
+        "libhidlbase",
+        "liblog",
+        "libutils",
+        "libhardware",
+        "android.hardware.usb-V1-ndk",
+        "libcutils",
+        "libbinder_ndk",
+    ],
+    arch: {
+        arm64: {
+            srcs: ["bin/arm64/android.hardware.usb-service.rockchip_otg"],
+        },
+        arm: {
+            srcs: ["bin/arm/android.hardware.usb-service.rockchip_otg"],
+        },
+    },
+    check_elf_files: false,
+}

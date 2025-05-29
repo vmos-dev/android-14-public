@@ -1,0 +1,41 @@
+bootstrap_go_package {
+    name: "soong-pq_init",
+    pkgPath: "android/soong/pq_init",
+    deps: [
+        "blueprint",
+        "blueprint-pathtools",
+        "soong",
+        "soong-android",
+        "soong-cc",
+        "soong-genrule",
+    ],
+    srcs: [
+          "include_dirs.go",
+    ],
+    pluginFor: ["soong_build"],
+}
+
+cc_pq_init {
+   name: "cc_pq_init_defaults"
+}
+
+cc_binary {
+    name: "pq_init",
+    defaults: [
+        "cc_pq_init_defaults"
+    ],
+    init_rc: ["init.pq-init.rc"],
+    vendor: true,
+    srcs: [
+        "main.cpp",
+    ],
+    shared_libs: [
+        "libutils",
+        "libcutils",
+        "liblog",
+        "libpq",
+    ],
+    include_dirs: [
+        "hardware/rockchip/libpq/include/",
+    ],
+}

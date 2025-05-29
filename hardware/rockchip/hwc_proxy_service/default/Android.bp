@@ -1,0 +1,22 @@
+cc_binary {
+    name: "rockchip.hwc.proxy-service",
+    relative_install_path: "hw",
+    init_rc: ["rockchip.hwc.proxy-service.rc"],
+    vintf_fragments: ["rockchip.hwc.proxy-service.xml"],
+    vendor: true,
+    srcs: [
+        "RkHwcProxyAidl.cpp",
+        "service.cpp",
+    ],
+    shared_libs: [
+        "rockchip.hwc.proxy.aidl-V1-ndk",
+        "libbase",
+        "liblog",
+        "libbinder_ndk",
+        "libdrm",
+        "librkhwcproxy",
+    ],
+    include_dirs: [
+        "hardware/rockchip/hwc_proxy_service/rockchip/hwc/proxy/drm_api",
+    ],
+}

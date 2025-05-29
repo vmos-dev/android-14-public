@@ -1,0 +1,79 @@
+/*
+ * Copyright (C) 2020, 2022 Arm Limited.
+ * SPDX-License-Identifier: Apache-2.0
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+soong_config_module_type {
+    name: "gralloc_rockchip_soong_gen_defaults",
+    module_type: "cc_defaults",
+    config_namespace: "gralloc_rockchip",
+    bool_variables: [
+        "aidl",
+    ],
+    properties: ["cflags", "shared_libs"],
+}
+
+gralloc_rockchip_soong_gen_defaults {
+    name: "arm_gralloc_version_defaults",
+    soong_config_variables: {
+        aidl: {
+            cflags: [
+                "-DGRALLOC_MAPPER_VERSION_MAJOR=4",
+                "-DGRALLOC_ALLOCATOR_HIDL_VERSION_MAJOR=0",
+                "-DGRALLOC_ALLOCATOR_AIDL_VERSION=1",
+            ],
+            shared_libs: [
+                "android.hardware.graphics.common@1.2",
+                "android.hardware.graphics.common-V4-ndk",
+            ],
+            conditions_default: {
+                cflags: [
+                    "-DGRALLOC_MAPPER_VERSION_MAJOR=4",
+                    "-DGRALLOC_ALLOCATOR_HIDL_VERSION_MAJOR=4",
+                    "-DGRALLOC_ALLOCATOR_AIDL_VERSION=0",
+                ],
+                shared_libs: [
+                    "android.hardware.graphics.common@1.2",
+                ],
+            },
+        },
+    },
+}
+
+cc_defaults {
+	name: "arm_gralloc_common_defaults",
+	defaults: ["arm_gralloc_build_defaults"],
+	shared_libs: ["libbase"],
+	cflags: [
+		"-DGRALLOC_USE_PRIVATE_FORMATS=1",
+	],
+}
+
+cc_library_headers {
+	name: "libgralloc_headers",
+	vendor: true,
+	host_supported: true,
+	export_include_dirs: [
+		".",
+		"./include",
+	],
+	header_libs: [
+		"libsystem_headers",
+		"libbase_headers",
+	],
+	export_header_lib_headers: [
+		"libsystem_headers",
+	],
+}

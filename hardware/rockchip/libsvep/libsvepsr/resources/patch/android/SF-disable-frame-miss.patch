@@ -1,0 +1,13 @@
+diff --git a/services/surfaceflinger/SurfaceFlinger.cpp b/services/surfaceflinger/SurfaceFlinger.cpp
+index 59f5ebee68..939cc63e66 100755
+--- a/services/surfaceflinger/SurfaceFlinger.cpp
++++ b/services/surfaceflinger/SurfaceFlinger.cpp
+@@ -1853,7 +1853,7 @@ bool SurfaceFlinger::previousFramePending(int graceTimeMs) {
+     const status_t status = fence->wait(graceTimeMs);
+     // This is the same as Fence::Status::Unsignaled, but it saves a getStatus() call,
+     // which calls wait(0) again internally
+-    return status == -ETIME;
++    return status == -ETIME && 0;
+ }
+ 
+ nsecs_t SurfaceFlinger::previousFramePresentTime() {

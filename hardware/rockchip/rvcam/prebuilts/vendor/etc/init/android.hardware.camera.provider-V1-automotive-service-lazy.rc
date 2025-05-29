@@ -1,0 +1,10 @@
+service vendor.camera.provider-aut /vendor/bin/hw/android.hardware.camera.provider-V1-automotive-service-lazy
+    interface aidl android.hardware.camera.provider.ICameraProvider/automotive/0
+    class hal
+    oneshot
+    disabled
+    user cameraserver
+    group audio camera input drmrpc usb
+    ioprio rt 4
+    capabilities SYS_NICE
+    task_profiles CameraServiceCapacity MaxPerformance

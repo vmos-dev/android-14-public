@@ -1,0 +1,6 @@
+build = [
+    "Android.rvcam.bp",
+    "Android.evs.bp",
+    "Android.provider.bp",
+	"Android.vehicle.bp",
+]

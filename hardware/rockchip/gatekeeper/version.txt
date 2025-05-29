@@ -1,0 +1,63 @@
+VERSION_INFO "version_1.0_20230920"
+
+-------------------------------------------------
+gatekeeper:
+commit 58bce6539af3253b726f75f16af37bc61acb999a
+Author: callen.cai <callen.cai@rock-chips.com>
+Date:   Fri Sep 1 14:16:41 2023 +0800
+
+    disable log output for release.
+
+=================================================
+
+v2 platform:
+-------------------------------------------------
+optee_test:
+commit 7d9245afddbee4fbf138830f5cb085b828136e41
+Author: callen.cai <callen.cai@rock-chips.com>
+Date:   Sat Dec 2 18:02:54 2023 +0800
+
+    rk_gatekeeper : fix open keymaster TA with uninitialized parameter.
+    
+    Signed-off-by: callen.cai <callen.cai@rock-chips.com>
+    Change-Id: I73420d0809f40dcaab41a1d4cc6a948ffe266101
+
+-------------------------------------------------
+optee_client:
+commit 2592064168a71b0229da06c3dd306703d1e6eb87
+Author: Hisping Lin <hisping.lin@rock-chips.com>
+Date:   Wed May 17 16:30:47 2023 +0800
+
+    build.sh: support uclibc toolchain for rv1106
+    
+    Signed-off-by: Hisping Lin <hisping.lin@rock-chips.com>
+    Change-Id: Ib5545d7d6e92aed48c95b1d8f9f171b40a3a96d5
+
+=================================================
+
+v1 platform:
+-------------------------------------------------
+optee_test:
+commit fb5b5e2f87a0b7f5f87867a90c5a86a496763aee
+Author: callen.cai <callen.cai@rock-chips.com>
+Date:   Fri Dec 1 15:09:49 2023 +0800
+
+    rk_keymaster : more compatiable for attestation keybox read/write.
+    
+    Change-Id: I89e72e4c7cfeaec8fbb7a70d2410a1360db75346
+    Signed-off-by: callen.cai <callen.cai@rock-chips.com>
+
+-------------------------------------------------
+optee_client:
+
+commit 209bdd29fbc2b148eb086f8a865c7773e9f107c9 (HEAD -> v1, origin/develop-rk3228, origin/HEAD, develop-rk3228)
+Author: Hisping Lin <hisping.lin@rock-chips.com>
+Date:   Tue Dec 6 15:38:10 2022 +0800
+
+    tee-supplicant: add O_SYNC flag when open security partition
+    
+    set O_SYNC flag for avoid data being stored in cache and
+    not actually written to flash.
+    
+    Signed-off-by: Hisping Lin <hisping.lin@rock-chips.com>
+    Change-Id: I8a8ff011b3a9dcc4542e31c8ace71368cc76bb23
